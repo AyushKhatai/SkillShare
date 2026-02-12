@@ -4,6 +4,7 @@ A modern, fullstack campus skill-sharing platform where college students can sha
 
 ## 🚀 Features
 
+
 ### Frontend
 - **Modern UI/UX**: Beautiful, responsive design with glassmorphism effects
 - **Landing Page**: Engaging homepage with features showcase
@@ -104,6 +105,12 @@ campus-skill-share/
 - dotenv: ^17.2.4
 - cors: ^2.8.6
 - express-validator: ^7.3.1
+
+## 📘 Git Workflow Help
+
+If you are unsure how to sync local code with GitHub and your desktop machine, follow:
+
+- [GIT_PUSH_PULL_GUIDE.md](GIT_PUSH_PULL_GUIDE.md)
 
 ## 📦 Installation
 

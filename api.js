@@ -1,5 +1,5 @@
 // API Configuration and Service
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = `${window.location.origin}/api`;
 
 // Get token from localStorage
 const getToken = () => localStorage.getItem('token');
