@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Skills - SkillShare Hub</title>
+    <meta name="description" content="Discover and learn new skills from your peers">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="skills-page.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="skills.html" class="nav-link active">Browse Skills</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <a href="dashboard.html" class="btn btn-ghost">My Account</a>
+                <a href="login.html" class="btn btn-secondary" onclick="API.auth.logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="skills-hero">
+        <div class="container">
+            <h1 class="page-title">Discover <span class="gradient-text">Amazing Skills</span></h1>
+            <p class="page-subtitle">Learn from talented peers on campus</p>
+
+            <!-- Search and Filter -->
+            <div class="search-filter-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="skillSearch"
+                        placeholder="Search for skills (e.g., Python, Guitar, Basketball...)">
+                </div>
+
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-category="all">All</button>
+                    <button class="filter-chip" data-category="technical">💻 Technical</button>
+                    <button class="filter-chip" data-category="arts">🎨 Arts</button>
+                    <button class="filter-chip" data-category="sports">⚽ Sports</button>
+                    <button class="filter-chip" data-category="fitness">💪 Fitness</button>
+                    <button class="filter-chip" data-category="other">✨ Other</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Grid -->
+    <section class="skills-section">
+        <div class="container">
+            <div class="skills-header">
+                <h2 id="resultsCount">Showing 18 skills</h2>
+                <select id="sortBy" class="sort-select">
+                    <option value="popular">Most Popular</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="recent">Recently Added</option>
+                    <option value="name">Name (A-Z)</option>
+                </select>
+            </div>
+
+            <div id="skillsGrid" class="skills-browse-grid">
+                <!-- Skills will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🎓</span>
+                        <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+                    </div>
+                    <p class="footer-tagline">Empowering campus learning, one skill at a time.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="skills.html">Browse Skills</a></li>
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SkillShare Hub. Built for campus communities.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+    <script src="theme.js"></script>
+    <script src="animations.js"></script>
+    <script src="skills-page.js"></script>
+</body>
+
+</html>
