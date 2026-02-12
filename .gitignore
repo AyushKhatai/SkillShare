@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Package lock (optional - remove this line if you want to track it)
+# package-lock.json
+
+# Agent/AI folders
+.agents/
+.gemini/
