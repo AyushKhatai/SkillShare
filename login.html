@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SkillShare Hub</title>
+    <meta name="description" content="Login to your SkillShare Hub account">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="auth-container">
+        <!-- Replaced background with simple CSS gradient in body/hero -->
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="skill-link" style="margin-bottom: 1rem; display: inline-block;">← Back to
+                    Home</a>
+                <div class="logo" style="justify-content: center;">
+                    <span class="logo-icon">🎓</span>
+                    <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1 class="auth-title">Welcome Back</h1>
+                <p class="auth-subtitle">Login to continue your learning journey</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="your.email@college.edu"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input"
+                        placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
+                        <input type="checkbox" name="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" style="color: var(--primary-color); font-size: 0.9rem;">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Login to Account
+                </button>
+
+                <div class="divider">Or continue with</div>
+
+                <div id="google-btn-container">
+                    <!-- Google Button Rendered Here -->
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="auth-login.js"></script>
+    <script src="auth-google.js"></script>
+    <script src="theme.js"></script>
+</body>
+
+</html>

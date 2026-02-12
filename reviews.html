@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - SkillShare Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .reviews-container {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: var(--spacing-xl);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-base);
+        }
+
+        .review-card:hover {
+            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            font-size: 1.25rem;
+        }
+
+        .review-skill {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .review-date {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+            </div>
+            <div class="nav-actions">
+                <a href="dashboard.html" class="btn btn-ghost">← Back to Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="reviews-container">
+        <div class="page-header">
+            <h1>My Reviews</h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Feedback from your learning sessions</p>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <div class="requester-avatar">SM</div>
+                    <div>
+                        <h4>Sarah Miller</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Computer Science, 2nd Year</p>
+                    </div>
+                </div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="review-skill">Web Development Session</div>
+            <p class="review-text">
+                "John is an amazing tutor! He explained React concepts so clearly and patiently.
+                The hands-on project we built together really helped me understand component lifecycle.
+                Highly recommend!"
+            </p>
+            <div class="review-date">2 days ago</div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <div class="requester-avatar">MJ</div>
+                    <div>
+                        <h4>Mike Johnson</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Electrical Engineering, 3rd Year
+                        </p>
+                    </div>
+                </div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="review-skill">Python Programming Session</div>
+            <p class="review-text">
+                "Best Python tutor on campus! The way he breaks down complex algorithms into simple steps is incredible.
+                I aced my data structures exam thanks to these sessions."
+            </p>
+            <div class="review-date">5 days ago</div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <div class="requester-avatar">EW</div>
+                    <div>
+                        <h4>Emma Watson</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Arts & Design, 1st Year</p>
+                    </div>
+                </div>
+                <div class="review-stars">⭐⭐⭐⭐</div>
+            </div>
+            <div class="review-skill">Guitar Playing Session</div>
+            <p class="review-text">
+                "Great session! Learned so many new chords and strumming patterns.
+                Would have been perfect with a bit more time for practice. Looking forward to the next session!"
+            </p>
+            <div class="review-date">1 week ago</div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <div class="requester-avatar">AT</div>
+                    <div>
+                        <h4>Alex Turner</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Business, 3rd Year</p>
+                    </div>
+                </div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="review-skill">Web Development Session</div>
+            <p class="review-text">
+                "Phenomenal teaching style! John made JavaScript so much easier to understand.
+                The real-world examples and projects were super helpful. Can't wait for advanced sessions!"
+            </p>
+            <div class="review-date">2 weeks ago</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

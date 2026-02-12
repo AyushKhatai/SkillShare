@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SkillShare Hub</title>
+    <meta name="description" content="Manage your skills and learning sessions">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Dashboard Navigation -->
+    <nav class="dashboard-nav navbar" style="position: sticky;">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <div class="nav-user">
+                    <span class="user-name" id="userNameDisplay">User</span>
+                    <button onclick="API.auth.logout()" class="btn btn-ghost btn-sm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container container" style="margin-top: 2rem; display: flex; gap: 2rem;">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar" style="width: 250px; flex-shrink: 0;">
+            <ul class="sidebar-menu" style="position: sticky; top: 100px;">
+                <li class="menu-item active">
+                    <a href="#overview" class="nav-link">
+                        <span class="menu-icon">📊</span>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#my-skills" class="nav-link">
+                        <span class="menu-icon">🎯</span>
+                        <span>My Skills</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="skills.html" class="nav-link">
+                        <span class="menu-icon">🔍</span>
+                        <span>Browse Skills</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#requests" class="nav-link">
+                        <span class="menu-icon">📬</span>
+                        <span>Requests</span>
+                        <span id="requestsCount" class="badge"
+                            style="background: var(--primary-color); color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.8em; display: none;">0</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#sessions" class="nav-link">
+                        <span class="menu-icon">📅</span>
+                        <span>Sessions</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main" style="flex: 1;">
+            <!-- Welcome Section -->
+            <section class="welcome-section"
+                style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+                <div class="welcome-content">
+                    <h1 id="welcomeTitle">Welcome! 👋</h1>
+                    <p style="color: var(--text-secondary);">Here's what's happening with your skills today</p>
+                </div>
+                <button id="addSkillBtn" class="btn btn-primary">
+                    <span>➕</span>
+                    Add New Skill
+                </button>
+            </section>
+
+            <!-- My Skills Section -->
+            <section id="my-skills" class="dashboard-section" style="margin-bottom: 3rem;">
+                <div class="section-header-dash"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">My Skills</h2>
+                </div>
+                <div id="mySkillsList" class="skills-list" style="display: grid; gap: 1rem;">
+                    <!-- Dynamically populated -->
+                    <div class="loading">Loading skills...</div>
+                </div>
+            </section>
+
+            <!-- Pending Requests Section -->
+            <section id="requests" class="dashboard-section" style="margin-bottom: 3rem;">
+                <div class="section-header-dash" style="margin-bottom: 1.5rem;">
+                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">Pending Requests</h2>
+                </div>
+                <div id="requestsList" class="requests-list" style="display: grid; gap: 1rem;">
+                    <!-- Dynamically populated -->
+                    <div class="loading">Loading requests...</div>
+                </div>
+            </section>
+
+            <!-- Upcoming Sessions -->
+            <section id="sessions" class="dashboard-section">
+                <div class="section-header-dash" style="margin-bottom: 1.5rem;">
+                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">My Sessions</h2>
+                </div>
+
+                <div class="tabs" style="margin-bottom: 1rem; display: flex; gap: 1rem;">
+                    <button class="btn btn-ghost active" onclick="filterSessions('all')">All</button>
+                    <button class="btn btn-ghost" onclick="filterSessions('student')">Learning</button>
+                    <button class="btn btn-ghost" onclick="filterSessions('teacher')">Teaching</button>
+                </div>
+
+                <div id="sessionsList" class="sessions-list" style="display: grid; gap: 1rem;">
+                    <!-- Dynamically populated -->
+                    <div class="loading">Loading sessions...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Skill Modal -->
+    <div id="addSkillModal" class="modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="modal-content feature-card"
+            style="width: 100%; max-width: 500px; padding: 2rem; position: relative;">
+            <span class="close" id="closeModal"
+                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;">&times;</span>
+            <h2 style="margin-bottom: 1.5rem;">Share a New Skill</h2>
+            <form id="addSkillForm">
+                <div class="form-group">
+                    <label class="form-label">Skill Title</label>
+                    <input type="text" name="title" class="form-input" required placeholder="e.g. Advanced Python">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="category" class="form-input" required>
+                        <option value="technical">Technical</option>
+                        <option value="arts">Arts</option>
+                        <option value="sports">Sports</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-input" rows="3" required
+                        placeholder="What will you teach?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Skill Level</label>
+                    <select name="skill_level" class="form-input" required>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Skill</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="theme.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
