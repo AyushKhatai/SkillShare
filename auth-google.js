@@ -44,7 +44,7 @@
             }
 
             // Send to backend verification
-            const res = await fetch('/api/auth/google', {
+            const res = await fetch(`${API_BASE_URL}/auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -78,7 +78,7 @@
     async function init() {
         try {
             // Fetch Client ID from backend config
-            const res = await fetch('/api/config');
+            const res = await fetch(`${API_BASE_URL}/config`);
             if (res.ok) {
                 const config = await res.json();
                 if (config.googleClientId) {

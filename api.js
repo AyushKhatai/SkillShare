@@ -1,5 +1,5 @@
 // API Configuration and Service
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://skillshare-o7i1.onrender.com/api';
 
 // Get token from localStorage
 const getToken = () => localStorage.getItem('token');
