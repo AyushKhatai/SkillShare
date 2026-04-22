@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - SkillShare Hub</title>
-    <meta name="description" content="Manage your skills and learning sessions">
+    <meta name="description" content="Manage your skills and learning sessions on SkillShare Hub">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,160 +17,384 @@
 
 <body>
     <!-- Dashboard Navigation -->
-    <nav class="dashboard-nav navbar" style="position: sticky;">
-        <div class="nav-container">
-            <div class="logo">
+    <nav class="dash-topbar">
+        <div class="dash-topbar-inner">
+            <a href="index.html" class="logo">
                 <span class="logo-icon">🎓</span>
                 <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-            </div>
-            <div class="nav-actions">
+            </a>
+            <div class="dash-topbar-right">
                 <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-                <div class="nav-user">
-                    <span class="user-name" id="userNameDisplay">User</span>
-                    <button onclick="API.auth.logout()" class="btn btn-ghost btn-sm">Logout</button>
+                <div class="dash-user-pill">
+                    <div class="dash-user-avatar" id="userAvatarDisplay">U</div>
+                    <span class="dash-user-name" id="userNameDisplay">User</span>
                 </div>
+                <button onclick="API.auth.logout()" class="btn btn-ghost btn-sm" id="logoutBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </button>
             </div>
         </div>
     </nav>
 
-    <div class="dashboard-container container" style="margin-top: 2rem; display: flex; gap: 2rem;">
+    <div class="dash-layout">
         <!-- Sidebar -->
-        <aside class="dashboard-sidebar" style="width: 250px; flex-shrink: 0;">
-            <ul class="sidebar-menu" style="position: sticky; top: 100px;">
-                <li class="menu-item active">
-                    <a href="#overview" class="nav-link">
-                        <span class="menu-icon">📊</span>
-                        <span>Overview</span>
+        <aside class="dash-sidebar">
+            <div class="dash-sidebar-inner">
+                <ul class="dash-sidebar-menu">
+                    <li class="dash-menu-item active">
+                        <a href="#overview" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7" />
+                                    <rect x="14" y="3" width="7" height="7" />
+                                    <rect x="14" y="14" width="7" height="7" />
+                                    <rect x="3" y="14" width="7" height="7" />
+                                </svg>
+                            </span>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="#my-skills" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                            </span>
+                            <span>My Skills</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="profile.html" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                            </span>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="skills.html" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
+                            </span>
+                            <span>Browse Skills</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="messages.html" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path
+                                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                                </svg>
+                            </span>
+                            <span>Messages</span>
+                            <span id="msgUnreadBadge" class="dash-badge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="#requests" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                </svg>
+                            </span>
+                            <span>Requests</span>
+                            <span id="requestsCount" class="dash-badge" style="display: none;">0</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="#sessions" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="16" y1="2" x2="16" y2="6" />
+                                    <line x1="8" y1="2" x2="8" y2="6" />
+                                    <line x1="3" y1="10" x2="21" y2="10" />
+                                </svg>
+                            </span>
+                            <span>Sessions</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
+                        <a href="leaderboard.html" class="dash-menu-link">
+                            <span class="dash-menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 7 7 7 7" />
+                                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5C17 4 17 7 17 7" />
+                                    <path d="M4 22h16" />
+                                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                                </svg>
+                            </span>
+                            <span>Leaderboard</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="dash-sidebar-footer">
+                    <a href="index.html" class="dash-menu-link">
+                        <span class="dash-menu-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                        </span>
+                        <span>Back to Home</span>
                     </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#my-skills" class="nav-link">
-                        <span class="menu-icon">🎯</span>
-                        <span>My Skills</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="skills.html" class="nav-link">
-                        <span class="menu-icon">🔍</span>
-                        <span>Browse Skills</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#requests" class="nav-link">
-                        <span class="menu-icon">📬</span>
-                        <span>Requests</span>
-                        <span id="requestsCount" class="badge"
-                            style="background: var(--primary-color); color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.8em; display: none;">0</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#sessions" class="nav-link">
-                        <span class="menu-icon">📅</span>
-                        <span>Sessions</span>
-                    </a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Content -->
-        <main class="dashboard-main" style="flex: 1;">
-            <!-- Welcome Section -->
-            <section class="welcome-section"
-                style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
-                <div class="welcome-content">
-                    <h1 id="welcomeTitle">Welcome! 👋</h1>
-                    <p style="color: var(--text-secondary);">Here's what's happening with your skills today</p>
+        <main class="dash-main">
+            <!-- Welcome Banner -->
+            <section class="dash-welcome" id="overview">
+                <div class="dash-welcome-content">
+                    <h1 id="welcomeTitle" class="dash-welcome-title">Welcome back! 👋</h1>
+                    <p class="dash-welcome-sub">Here's what's happening with your skills today</p>
                 </div>
-                <button id="addSkillBtn" class="btn btn-primary">
-                    <span>➕</span>
+                <button id="addSkillBtn" class="btn btn-primary btn-glow">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
                     Add New Skill
                 </button>
             </section>
 
-            <!-- My Skills Section -->
-            <section id="my-skills" class="dashboard-section" style="margin-bottom: 3rem;">
-                <div class="section-header-dash"
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">My Skills</h2>
+            <!-- Stats Cards -->
+            <section class="dash-stats">
+                <div class="dash-stat-card stat-purple">
+                    <div class="dash-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                    </div>
+                    <div class="dash-stat-info">
+                        <span class="dash-stat-value" id="statSkills">0</span>
+                        <span class="dash-stat-label">Skills Shared</span>
+                    </div>
                 </div>
-                <div id="mySkillsList" class="skills-list" style="display: grid; gap: 1rem;">
-                    <!-- Dynamically populated -->
-                    <div class="loading">Loading skills...</div>
+                <div class="dash-stat-card stat-blue">
+                    <div class="dash-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <div class="dash-stat-info">
+                        <span class="dash-stat-value" id="statSessions">0</span>
+                        <span class="dash-stat-label">Total Sessions</span>
+                    </div>
+                </div>
+                <div class="dash-stat-card stat-green">
+                    <div class="dash-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                    </div>
+                    <div class="dash-stat-info">
+                        <span class="dash-stat-value" id="statRating">—</span>
+                        <span class="dash-stat-label">Avg Rating</span>
+                    </div>
+                </div>
+                <div class="dash-stat-card stat-rose">
+                    <div class="dash-stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                    </div>
+                    <div class="dash-stat-info">
+                        <span class="dash-stat-value" id="statRequests">0</span>
+                        <span class="dash-stat-label">Pending Requests</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Skills Section -->
+            <section id="my-skills" class="dash-section">
+                <div class="dash-section-header">
+                    <h2 class="dash-section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        My Skills
+                    </h2>
+                </div>
+                <div id="mySkillsList" class="dash-skills-grid">
+                    <div class="dash-empty-state">
+                        <div class="dash-empty-icon">✨</div>
+                        <p>Loading skills...</p>
+                    </div>
                 </div>
             </section>
 
             <!-- Pending Requests Section -->
-            <section id="requests" class="dashboard-section" style="margin-bottom: 3rem;">
-                <div class="section-header-dash" style="margin-bottom: 1.5rem;">
-                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">Pending Requests</h2>
+            <section id="requests" class="dash-section">
+                <div class="dash-section-header">
+                    <h2 class="dash-section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                        </svg>
+                        Pending Requests
+                    </h2>
                 </div>
-                <div id="requestsList" class="requests-list" style="display: grid; gap: 1rem;">
-                    <!-- Dynamically populated -->
-                    <div class="loading">Loading requests...</div>
+                <div id="requestsList" class="dash-requests-list">
+                    <div class="dash-empty-state">
+                        <div class="dash-empty-icon">📬</div>
+                        <p>Loading requests...</p>
+                    </div>
                 </div>
             </section>
 
             <!-- Upcoming Sessions -->
-            <section id="sessions" class="dashboard-section">
-                <div class="section-header-dash" style="margin-bottom: 1.5rem;">
-                    <h2 class="section-title" style="font-size: 1.5rem; margin: 0;">My Sessions</h2>
+            <section id="sessions" class="dash-section">
+                <div class="dash-section-header">
+                    <h2 class="dash-section-title">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
+                        My Sessions
+                    </h2>
+                    <div class="dash-tab-group">
+                        <button class="dash-tab active" onclick="filterSessions('all')">All</button>
+                        <button class="dash-tab" onclick="filterSessions('student')">Learning</button>
+                        <button class="dash-tab" onclick="filterSessions('teacher')">Teaching</button>
+                    </div>
                 </div>
-
-                <div class="tabs" style="margin-bottom: 1rem; display: flex; gap: 1rem;">
-                    <button class="btn btn-ghost active" onclick="filterSessions('all')">All</button>
-                    <button class="btn btn-ghost" onclick="filterSessions('student')">Learning</button>
-                    <button class="btn btn-ghost" onclick="filterSessions('teacher')">Teaching</button>
-                </div>
-
-                <div id="sessionsList" class="sessions-list" style="display: grid; gap: 1rem;">
-                    <!-- Dynamically populated -->
-                    <div class="loading">Loading sessions...</div>
+                <div id="sessionsList" class="dash-sessions-list">
+                    <div class="dash-empty-state">
+                        <div class="dash-empty-icon">📅</div>
+                        <p>Loading sessions...</p>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
     <!-- Add Skill Modal -->
-    <div id="addSkillModal" class="modal"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
-        <div class="modal-content feature-card"
-            style="width: 100%; max-width: 500px; padding: 2rem; position: relative;">
-            <span class="close" id="closeModal"
-                style="position: absolute; top: 1rem; right: 1rem; cursor: pointer; font-size: 1.5rem;">&times;</span>
-            <h2 style="margin-bottom: 1.5rem;">Share a New Skill</h2>
-            <form id="addSkillForm">
+    <div id="addSkillModal" class="dash-modal-overlay">
+        <div class="dash-modal">
+            <div class="dash-modal-header">
+                <h2 class="dash-modal-title">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Share a New Skill
+                </h2>
+                <button class="dash-modal-close" id="closeModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addSkillForm" class="dash-modal-form">
                 <div class="form-group">
                     <label class="form-label">Skill Title</label>
-                    <input type="text" name="title" class="form-input" required placeholder="e.g. Advanced Python">
+                    <input type="text" name="title" class="form-input" required
+                        placeholder="e.g. Advanced Python Programming">
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Category</label>
-                    <select name="category" class="form-input" required>
-                        <option value="technical">Technical</option>
-                        <option value="arts">Arts</option>
-                        <option value="sports">Sports</option>
-                        <option value="fitness">Fitness</option>
-                        <option value="other">Other</option>
-                    </select>
+                <div class="dash-form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select name="category" id="categorySelect" class="form-input" required>
+                            <option value="Programming">Programming</option>
+                            <option value="Arts & Design">Arts & Design</option>
+                            <option value="Music">Music</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Fitness">Fitness</option>
+                            <option value="Language">Language</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Skill Level</label>
+                        <select name="skill_level" class="form-input" required>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Description</label>
                     <textarea name="description" class="form-input" rows="3" required
-                        placeholder="What will you teach?"></textarea>
+                        placeholder="Tell students what they'll learn..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Skill Level</label>
-                    <select name="skill_level" class="form-input" required>
-                        <option value="Beginner">Beginner</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="Advanced">Advanced</option>
-                    </select>
+                <div class="dash-form-row">
+                    <div class="form-group">
+                        <label class="form-label">Duration</label>
+                        <input type="text" name="duration" class="form-input" placeholder="e.g. 2 hours">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price (₹)</label>
+                        <input type="number" name="price" class="form-input" placeholder="0 for free" value="0" min="0">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Skill</button>
+                <div class="dash-form-row">
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" name="location" class="form-input" placeholder="e.g. Online, Campus Library">
+                    </div>
+                    <div class="form-group" id="resumeLinkGroup">
+                        <label class="form-label">Resume / Portfolio Link</label>
+                        <input type="url" id="resumeLinkInput" name="resume_link" class="form-input" placeholder="e.g. Google Drive, LinkedIn" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-glow dash-modal-submit">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Create Skill
+                </button>
             </form>
         </div>
     </div>
 
+    <script src="toast.js"></script>
     <script src="api.js"></script>
     <script src="theme.js"></script>
     <script src="dashboard.js"></script>

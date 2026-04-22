@@ -10,6 +10,7 @@ A modern, fullstack campus skill-sharing platform where college students can sha
 - **Authentication**: Login and registration pages
 - **Dashboard**: User dashboard for managing skills and bookings
 - **Skills Browsing**: Browse and filter available skills
+- **Resume Linking**: Option to attach and view resumes/portfolios for Programming skills
 - **Reviews System**: Rate and review skills
 
 ### Backend
@@ -240,7 +241,7 @@ API.bookings.createBooking({
 
 ### Tables
 - **users**: User accounts and profiles
-- **skills**: Skills offered by users
+- **skills**: Skills offered by users (includes resume/portfolio links)
 - **bookings**: Booking sessions between students and teachers
 - **reviews**: Reviews and ratings for skills
 

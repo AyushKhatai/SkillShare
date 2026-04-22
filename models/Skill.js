@@ -71,19 +71,19 @@ class Skill {
 
     // Create new skill
     static async create(skillData) {
-        const { user_id, title, description, category, skill_level, duration, price, location, image_url } = skillData;
+        const { user_id, title, description, category, skill_level, duration, price, location, resume_link } = skillData;
         const result = await db.query(
-            `INSERT INTO skills (user_id, title, description, category, skill_level, duration, price, location, image_url)
+            `INSERT INTO skills (user_id, title, description, category, skill_level, duration, price, location, resume_link)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        RETURNING *`,
-            [user_id, title, description, category, skill_level, duration || null, price || 0, location || null, image_url || null]
+            [user_id, title, description, category, skill_level, duration || null, price || 0, location || null, resume_link || null]
         );
         return result.rows[0];
     }
 
     // Update skill
     static async update(skillId, skillData) {
-        const { title, description, category, skill_level, duration, price, location, image_url, is_active } = skillData;
+        const { title, description, category, skill_level, duration, price, location, resume_link, is_active } = skillData;
         const result = await db.query(
             `UPDATE skills 
        SET title = COALESCE($1, title),
@@ -93,12 +93,12 @@ class Skill {
            duration = COALESCE($5, duration),
            price = COALESCE($6, price),
            location = COALESCE($7, location),
-           image_url = COALESCE($8, image_url),
+           resume_link = COALESCE($8, resume_link),
            is_active = COALESCE($9, is_active),
            updated_at = CURRENT_TIMESTAMP
        WHERE skill_id = $10
        RETURNING *`,
-            [title, description, category, skill_level, duration, price, location, image_url, is_active, skillId]
+            [title, description, category, skill_level, duration, price, location, resume_link, is_active, skillId]
         );
         return result.rows[0];
     }

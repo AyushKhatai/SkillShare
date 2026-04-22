@@ -23,16 +23,25 @@
                 <span class="logo-icon">🎓</span>
                 <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                <li><a href="#skills" class="nav-link">Browse Skills</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-                <a href="login.html" class="btn btn-ghost">Login</a>
-                <a href="register.html" class="btn btn-primary">Get Started</a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-drawer" id="navDrawer">
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="#skills" class="nav-link">Browse Skills</a></li>
+                    <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <a href="login.html" class="btn btn-ghost" id="navAuthLogin">Login</a>
+                    <a href="register.html" class="btn btn-primary" id="navAuthRegister">Get Started</a>
+                    <a href="dashboard.html" class="btn btn-primary" id="navAuthDashboard" style="display:none;">Dashboard</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -72,15 +81,15 @@
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number">500+</div>
+                    <div class="stat-number" data-count="500">0</div>
                     <div class="stat-label">Active Students</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">120+</div>
+                    <div class="stat-number" data-count="120">0</div>
                     <div class="stat-label">Skills Shared</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">1000+</div>
+                    <div class="stat-number" data-count="1000">0</div>
                     <div class="stat-label">Sessions Completed</div>
                 </div>
             </div>
@@ -264,12 +273,168 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Students Say</h2>
+                <p class="section-subtitle">Real stories from our campus community</p>
+            </div>
+            <div class="testimonials-carousel" id="testimonialsCarousel">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-quote">"I learned React in just 3 weeks from a senior. The personalized attention you get here is unmatched — way better than any online course."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #7c3aed, #d946ef);">SP</div>
+                            <div>
+                                <div class="testimonial-name">Sneha Patel</div>
+                                <div class="testimonial-role">CS, 2nd Year · Learned Web Dev</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-quote">"Teaching guitar on SkillShare Hub helped me earn pocket money while doing what I love. Already had 20+ sessions!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #8b5cf6);">RK</div>
+                            <div>
+                                <div class="testimonial-name">Rohan Kumar</div>
+                                <div class="testimonial-role">Music, 3rd Year · Teaches Guitar</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-quote">"Found an amazing basketball coach right on campus. The booking system is super smooth and the tutor was professional."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d946ef, #f43f5e);">AJ</div>
+                            <div>
+                                <div class="testimonial-name">Ananya Joshi</div>
+                                <div class="testimonial-role">Business, 1st Year · Learned Basketball</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-quote">"The platform connected me with a Figma expert who completely transformed my design workflow. Best campus resource ever!"</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">DM</div>
+                            <div>
+                                <div class="testimonial-name">Dev Mehta</div>
+                                <div class="testimonial-role">Design, 2nd Year · Learned UI/UX</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-dots" id="testimonialDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Skill Exchange Ticker -->
+    <section class="exchange-ticker-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🔄 Live Skill Exchanges</h2>
+                <p class="section-subtitle">See what's happening on campus right now</p>
+            </div>
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#7c3aed;">A</span> Alex traded <strong>Python</strong> → <strong>Guitar</strong> with Sam</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#d946ef;">M</span> Maya learned <strong>UI Design</strong> from Priya</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#06b6d4;">R</span> Raj taught <strong>Data Structures</strong> to 3 students</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#f43f5e;">S</span> Sara booked a <strong>Yoga</strong> session with Nisha</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#10b981;">K</span> Karan swapped <strong>Basketball</strong> → <strong>Spanish</strong> with Leo</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#f59e0b;">T</span> Tina completed <strong>Photography</strong> mentorship</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#8b5cf6;">V</span> Vikram started learning <strong>Machine Learning</strong></div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#ec4899;">P</span> Pooja rated her <strong>Dance</strong> session ⭐⭐⭐⭐⭐</div>
+                <!-- Duplicate for seamless loop -->
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#7c3aed;">A</span> Alex traded <strong>Python</strong> → <strong>Guitar</strong> with Sam</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#d946ef;">M</span> Maya learned <strong>UI Design</strong> from Priya</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#06b6d4;">R</span> Raj taught <strong>Data Structures</strong> to 3 students</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#f43f5e;">S</span> Sara booked a <strong>Yoga</strong> session with Nisha</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#10b981;">K</span> Karan swapped <strong>Basketball</strong> → <strong>Spanish</strong> with Leo</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#f59e0b;">T</span> Tina completed <strong>Photography</strong> mentorship</div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#8b5cf6;">V</span> Vikram started learning <strong>Machine Learning</strong></div>
+                <div class="ticker-item"><span class="ticker-avatar" style="background:#ec4899;">P</span> Pooja rated her <strong>Dance</strong> session ⭐⭐⭐⭐⭐</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about SkillShare Hub</p>
+            </div>
+            <div class="faq-list" id="faqList">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is SkillShare Hub free to use?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Creating an account, browsing skills, and messaging tutors is completely free. Individual tutors may choose to set a price for their sessions, but many offer free peer-to-peer learning.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Who can join the platform?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Any verified student from our campus community can sign up. We use institutional email verification to ensure a safe, trusted learning environment.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How do I book a skill session?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Browse the skills page, find a tutor you like, and click "Request Session." Pick your preferred date & time, add a message, and submit. The tutor will confirm or suggest an alternative time.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can I both teach and learn on the platform?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! Every user can list skills they want to teach and also request sessions from other tutors. It's a two-way learning community.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How are tutors rated and reviewed?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>After each completed session, students can leave a star rating and written review. These ratings are displayed on the tutor's skill cards to help others make informed choices.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What happens if I need to cancel a session?</span>
+                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>You can cancel a pending or confirmed session from your dashboard at any time. We encourage giving at least 24 hours notice out of courtesy to the tutor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section" id="ctaSection">
         <div class="cta-content">
-            <h2 class="cta-title">Ready to Start Your Learning Journey?</h2>
-            <p class="cta-description">Join hundreds of students already sharing and learning skills on campus</p>
-            <a href="register.html" class="btn btn-primary btn-large">
+            <h2 class="cta-title" id="ctaTitle">Ready to Start Your Learning Journey?</h2>
+            <p class="cta-description" id="ctaDesc">Join hundreds of students already sharing and learning skills on campus</p>
+            <a href="register.html" class="btn btn-primary btn-large" id="ctaBtn">
                 Create Free Account
                 <span class="btn-arrow">→</span>
             </a>
@@ -320,6 +485,7 @@
         </div>
     </footer>
 
+    <script src="toast.js"></script>
     <script src="api.js"></script>
     <script src="script.js"></script>
     <script src="theme.js"></script>

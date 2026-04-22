@@ -23,7 +23,7 @@ class Booking {
     static async findByStudentId(studentId) {
         const result = await db.query(
             `SELECT b.*, 
-              s.title as skill_title, s.category, s.duration, s.price, s.location, s.image_url,
+              s.title as skill_title, s.category, s.duration, s.price, s.location,
               teacher.full_name as teacher_name, teacher.email as teacher_email, teacher.profile_image as teacher_image
        FROM bookings b
        JOIN skills s ON b.skill_id = s.skill_id

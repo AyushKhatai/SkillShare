@@ -1,4 +1,3 @@
-
 // Google Authentication Handler
 
 (function () {
@@ -14,18 +13,23 @@
 
     // Initialize Google Button
     function initGoogleBtn(clientId) {
-        if (!window.google) return;
+        if (!window.google) {
+            console.error("Google Identity Services not loaded");
+            return;
+        }
 
         google.accounts.id.initialize({
             client_id: clientId,
-            callback: handleCredentialResponse
+            callback: handleCredentialResponse,
+            auto_select: false,
+            cancel_on_tap_outside: false
         });
 
         const btnContainer = document.getElementById("google-btn-container");
         if (btnContainer) {
             google.accounts.id.renderButton(
                 btnContainer,
-                { theme: "outline", size: "large", width: "100%" }
+                { theme: "outline", size: "large", width: 350 }
             );
         }
     }
@@ -33,7 +37,11 @@
     // Handle the JWT response from Google
     async function handleCredentialResponse(response) {
         try {
-            console.log("Google JWT:", response.credential);
+            console.log("Google JWT received");
+
+            if (!response.credential) {
+                throw new Error("No credential received from Google");
+            }
 
             // Send to backend verification
             const res = await fetch('/api/auth/google', {
@@ -47,21 +55,22 @@
             const data = await res.json();
 
             if (res.ok) {
-                // Store token similar to regular login
+                // Store token
                 localStorage.setItem('token', data.token);
                 if (data.user) {
                     localStorage.setItem('user', JSON.stringify(data.user));
                 }
 
-                alert('Login successful! Redirecting...');
-                window.location.href = '/dashboard.html';
+                console.log("Google login successful");
+                showToast('Login successful! Redirecting...', 'success');
+                setTimeout(() => { window.location.href = '/dashboard.html'; }, 800);
             } else {
                 throw new Error(data.message || 'Google Auth Failed');
             }
 
         } catch (error) {
             console.error('Error during Google Auth:', error);
-            alert('Authentication failed: ' + error.message);
+            showToast('Authentication failed: ' + error.message, 'error');
         }
     }
 
@@ -73,12 +82,17 @@
             if (res.ok) {
                 const config = await res.json();
                 if (config.googleClientId) {
+                    console.log("Google Client ID loaded:", config.googleClientId.substring(0, 20) + "...");
                     loadGoogleScript(config.googleClientId);
                 } else {
                     console.warn("Google Client ID not configured.");
                     const container = document.getElementById("google-btn-container");
-                    if (container) container.innerHTML = "<p style='color:red;font-size:0.8rem;'>Google Client ID missing in .env</p>";
+                    if (container) {
+                        container.innerHTML = "<p style='color:red;font-size:0.8rem;'>Google Client ID not configured. Please contact administrator.</p>";
+                    }
                 }
+            } else {
+                console.error("Failed to fetch config");
             }
         } catch (e) {
             console.error("Failed to load config:", e);
@@ -86,6 +100,10 @@
     }
 
     // Run when DOM is ready
-    document.addEventListener('DOMContentLoaded', init);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 
 })();

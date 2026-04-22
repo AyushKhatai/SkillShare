@@ -25,6 +25,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/skills', require('./routes/skills'));
 app.use('/api/bookings', require('./routes/bookings'));
 app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/messages', require('./routes/messages'));
 
 app.get('/api/config', (req, res) => {
   res.json({
@@ -42,7 +43,8 @@ app.get('/api', (req, res) => {
       users: "/api/users",
       skills: "/api/skills",
       bookings: "/api/bookings",
-      reviews: "/api/reviews"
+      reviews: "/api/reviews",
+      messages: "/api/messages"
     }
   });
 });

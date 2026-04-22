@@ -1,4 +1,42 @@
 // ========================================
+// AUTH-AWARE UI (Landing Page)
+// ========================================
+(function () {
+    if (typeof API === 'undefined' || !API.auth) return;
+
+    const isLoggedIn = API.auth.isAuthenticated();
+    const user = API.getUser();
+
+    if (isLoggedIn && user) {
+        const displayName = (user.name || user.full_name || 'User').split(' ')[0];
+
+        // Swap nav buttons
+        const loginBtn = document.getElementById('navAuthLogin');
+        const registerBtn = document.getElementById('navAuthRegister');
+        const dashBtn = document.getElementById('navAuthDashboard');
+
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (registerBtn) registerBtn.style.display = 'none';
+        if (dashBtn) {
+            dashBtn.style.display = '';
+            dashBtn.textContent = `👋 ${displayName}'s Dashboard`;
+        }
+
+        // Swap CTA section
+        const ctaTitle = document.getElementById('ctaTitle');
+        const ctaDesc = document.getElementById('ctaDesc');
+        const ctaBtn = document.getElementById('ctaBtn');
+
+        if (ctaTitle) ctaTitle.textContent = `Welcome back, ${displayName}! 🎉`;
+        if (ctaDesc) ctaDesc.textContent = 'Head to your dashboard to manage skills, check sessions, or explore new things to learn.';
+        if (ctaBtn) {
+            ctaBtn.href = 'dashboard.html';
+            ctaBtn.innerHTML = 'Go to Dashboard <span class="btn-arrow">→</span>';
+        }
+    }
+})();
+
+// ========================================
 // NAVBAR SCROLL EFFECT
 // ========================================
 
@@ -187,3 +225,167 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ========================================
+// ANIMATED STAT COUNTERS
+// ========================================
+function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function updateCount(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * target);
+            counter.textContent = current.toLocaleString() + '+';
+            if (progress < 1) {
+                requestAnimationFrame(updateCount);
+            }
+        }
+        requestAnimationFrame(updateCount);
+    });
+}
+
+// Trigger counters on scroll into view
+const statsSection = document.querySelector('.hero-stats');
+if (statsSection) {
+    let countersTriggered = false;
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !countersTriggered) {
+                countersTriggered = true;
+                animateCounters();
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+    statsObserver.observe(statsSection);
+}
+
+// ========================================
+// TESTIMONIALS CAROUSEL
+// ========================================
+(function () {
+    const track = document.getElementById('testimonialTrack');
+    const dotsContainer = document.getElementById('testimonialDots');
+    if (!track || !dotsContainer) return;
+
+    const cards = track.querySelectorAll('.testimonial-card');
+    const total = cards.length;
+    let currentIndex = 0;
+    let autoSlideInterval;
+
+    // Create dots
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        dotsContainer.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    function nextSlide() {
+        goToSlide((currentIndex + 1) % total);
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+    }
+
+    startAutoSlide();
+
+    // Pause on hover
+    const carousel = document.getElementById('testimonialsCarousel');
+    if (carousel) {
+        carousel.addEventListener('mouseenter', stopAutoSlide);
+        carousel.addEventListener('mouseleave', startAutoSlide);
+    }
+
+    // Touch swipe support
+    let touchStartX = 0;
+    if (carousel) {
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            stopAutoSlide();
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', (e) => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goToSlide((currentIndex + 1) % total);
+                } else {
+                    goToSlide((currentIndex - 1 + total) % total);
+                }
+            }
+            startAutoSlide();
+        }, { passive: true });
+    }
+})();
+
+// ========================================
+// FAQ ACCORDION
+// ========================================
+(function () {
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            // Close all
+            faqItems.forEach(i => i.classList.remove('open'));
+            // Toggle current
+            if (!isOpen) {
+                item.classList.add('open');
+            }
+        });
+    });
+})();
+
+// ========================================
+// HAMBURGER MOBILE MENU
+// ========================================
+(function () {
+    const hamburger = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('navDrawer');
+    if (!hamburger || !drawer) return;
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        drawer.classList.toggle('open');
+    });
+
+    // Close on link click
+    drawer.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            drawer.classList.remove('open');
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!drawer.contains(e.target) && !hamburger.contains(e.target) && drawer.classList.contains('open')) {
+            hamburger.classList.remove('active');
+            drawer.classList.remove('open');
+        }
+    });
+})();

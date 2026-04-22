@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - SkillShare Hub</title>
+    <meta name="description" content="See the top-rated tutors and most active skill sharers on campus">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="leaderboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+            </a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-drawer" id="navDrawer">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                    <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
+                    <li><a href="leaderboard.html" class="nav-link active">Leaderboard</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <a href="dashboard.html" class="btn btn-ghost">My Account</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="lb-hero">
+        <div class="container">
+            <div class="lb-hero-content">
+                <h1 class="lb-hero-title">
+                    🏆 Campus <span class="gradient-text">Leaderboard</span>
+                </h1>
+                <p class="lb-hero-sub">See who's leading the skill-sharing revolution on campus</p>
+            </div>
+
+            <!-- Top Stats -->
+            <div class="lb-top-stats">
+                <div class="lb-top-stat">
+                    <span class="lb-top-stat-value" id="lbTotalTutors">0</span>
+                    <span class="lb-top-stat-label">Active Tutors</span>
+                </div>
+                <div class="lb-top-stat">
+                    <span class="lb-top-stat-value" id="lbTotalSkills">0</span>
+                    <span class="lb-top-stat-label">Skills Available</span>
+                </div>
+                <div class="lb-top-stat">
+                    <span class="lb-top-stat-value" id="lbTotalSessions">0</span>
+                    <span class="lb-top-stat-label">Total Sessions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="lb-filters">
+        <div class="container">
+            <div class="lb-filter-chips">
+                <button class="browse-chip active" data-category="all">🏆 All</button>
+                <button class="browse-chip" data-category="programming">💻 Programming</button>
+                <button class="browse-chip" data-category="arts & design">🎨 Arts & Design</button>
+                <button class="browse-chip" data-category="music">🎵 Music</button>
+                <button class="browse-chip" data-category="sports">⚽ Sports</button>
+                <button class="browse-chip" data-category="fitness">💪 Fitness</button>
+                <button class="browse-chip" data-category="language">🌐 Language</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Podium Section -->
+    <section class="lb-podium-section">
+        <div class="container">
+            <div class="lb-podium" id="lbPodium">
+                <div class="lb-loading">
+                    <div class="browse-loading-spinner"></div>
+                    <p>Loading leaderboard...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Rankings Table -->
+    <section class="lb-rankings-section">
+        <div class="container">
+            <h2 class="lb-rankings-title">Full Rankings</h2>
+            <div class="lb-rankings-table" id="lbRankings">
+                <div class="lb-loading">
+                    <div class="browse-loading-spinner"></div>
+                    <p>Loading rankings...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">🎓</span>
+                        <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+                    </div>
+                    <p class="footer-tagline">Empowering campus learning, one skill at a time.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Platform</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="skills.html">Browse Skills</a></li>
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SkillShare Hub. Built for campus communities.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="toast.js"></script>
+    <script src="api.js"></script>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script src="leaderboard.js"></script>
+</body>
+
+</html>

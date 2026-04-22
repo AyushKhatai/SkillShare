@@ -26,13 +26,15 @@ const removeUser = () => localStorage.removeItem('user');
 async function apiRequest(endpoint, options = {}) {
     const token = getToken();
 
+    const { headers: optionHeaders, ...restOptions } = options;
+
     const config = {
+        ...restOptions,
         headers: {
             'Content-Type': 'application/json',
             ...(token && { 'Authorization': `Bearer ${token}` }),
-            ...options.headers
-        },
-        ...options
+            ...optionHeaders
+        }
     };
 
     try {
@@ -40,6 +42,20 @@ async function apiRequest(endpoint, options = {}) {
         const data = await response.json();
 
         if (!response.ok) {
+            // Handle expired/invalid token — auto logout
+            if (response.status === 401 && data.message === 'Invalid token') {
+                console.warn('Token expired or invalid — logging out');
+                removeToken();
+                removeUser();
+                // Only redirect if not already on login page
+                if (!window.location.pathname.includes('login')) {
+                    if (typeof showToast === 'function') {
+                        showToast('Your session has expired. Please login again.', 'warning');
+                    }
+                    setTimeout(() => { window.location.href = '/login.html'; }, 1200);
+                }
+                throw new Error('Session expired');
+            }
             throw new Error(data.message || 'Something went wrong');
         }
 
@@ -58,6 +74,14 @@ const authAPI = {
             method: 'POST',
             body: JSON.stringify(userData)
         });
+
+        if (data.token) {
+            setToken(data.token);
+        }
+        if (data.user) {
+            setUser(data.user);
+        }
+
         return data;
     },
 
@@ -70,6 +94,43 @@ const authAPI = {
 
         if (data.token) {
             setToken(data.token);
+        }
+        if (data.user) {
+            setUser(data.user);
+        }
+
+        return data;
+    },
+
+    // Google login
+    googleLogin: async (googleToken) => {
+        const data = await apiRequest('/auth/google', {
+            method: 'POST',
+            body: JSON.stringify({ token: googleToken })
+        });
+
+        if (data.token) {
+            setToken(data.token);
+        }
+        if (data.user) {
+            setUser(data.user);
+        }
+
+        return data;
+    },
+
+    // Link password to Google account
+    linkPassword: async (email, password) => {
+        const data = await apiRequest('/auth/link-password', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+
+        if (data.token) {
+            setToken(data.token);
+        }
+        if (data.user) {
+            setUser(data.user);
         }
 
         return data;
@@ -256,6 +317,54 @@ const reviewsAPI = {
     }
 };
 
+// Messages API
+const messagesAPI = {
+    // Get all conversations
+    getConversations: async () => {
+        return await apiRequest('/messages/conversations');
+    },
+
+    // Get messages in a conversation
+    getMessages: async (conversationId, limit = 50, offset = 0) => {
+        return await apiRequest(`/messages/conversations/${conversationId}?limit=${limit}&offset=${offset}`);
+    },
+
+    // Send a message
+    sendMessage: async (receiverId, content, bookingId = null, skillId = null) => {
+        return await apiRequest('/messages/send', {
+            method: 'POST',
+            body: JSON.stringify({ receiverId, content, bookingId, skillId })
+        });
+    },
+
+    // Start or get a conversation
+    startConversation: async (receiverId, bookingId = null, skillId = null) => {
+        return await apiRequest('/messages/start', {
+            method: 'POST',
+            body: JSON.stringify({ receiverId, bookingId, skillId })
+        });
+    },
+
+    // Mark conversation as read
+    markRead: async (conversationId) => {
+        return await apiRequest(`/messages/read/${conversationId}`, {
+            method: 'PUT'
+        });
+    },
+
+    // Get unread message count
+    getUnreadCount: async () => {
+        return await apiRequest('/messages/unread');
+    },
+
+    // Delete a message
+    deleteMessage: async (messageId) => {
+        return await apiRequest(`/messages/${messageId}`, {
+            method: 'DELETE'
+        });
+    }
+};
+
 // Export all APIs
 window.API = {
     auth: authAPI,
@@ -263,6 +372,7 @@ window.API = {
     skills: skillsAPI,
     bookings: bookingsAPI,
     reviews: reviewsAPI,
+    messages: messagesAPI,
     getToken,
     setToken,
     removeToken,

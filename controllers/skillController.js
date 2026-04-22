@@ -69,7 +69,7 @@ exports.getMySkills = async (req, res) => {
 exports.createSkill = async (req, res) => {
     try {
         const userId = req.user.user_id;
-        const { title, description, category, skill_level, duration, price, location, image_url } = req.body;
+        const { title, description, category, skill_level, duration, price, location, resume_link } = req.body;
 
         // Validation
         if (!title || !description || !category || !skill_level) {
@@ -85,7 +85,7 @@ exports.createSkill = async (req, res) => {
             duration,
             price,
             location,
-            image_url
+            resume_link
         };
 
         const newSkill = await Skill.create(skillData);
@@ -96,7 +96,7 @@ exports.createSkill = async (req, res) => {
         });
     } catch (error) {
         console.error('Create skill error:', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error: ' + error.message });
     }
 };
 
@@ -105,7 +105,7 @@ exports.updateSkill = async (req, res) => {
     try {
         const { skillId } = req.params;
         const userId = req.user.user_id;
-        const { title, description, category, skill_level, duration, price, location, image_url, is_active } = req.body;
+        const { title, description, category, skill_level, duration, price, location, resume_link, is_active } = req.body;
 
         // Check if skill exists and belongs to user
         const existingSkill = await Skill.findById(skillId);
@@ -125,7 +125,7 @@ exports.updateSkill = async (req, res) => {
             duration,
             price,
             location,
-            image_url,
+            resume_link,
             is_active
         });
 

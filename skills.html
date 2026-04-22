@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Skills - SkillShare Hub</title>
-    <meta name="description" content="Discover and learn new skills from your peers">
+    <meta name="description" content="Discover and learn new skills from talented peers on your campus">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="skills-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,55 +19,75 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-icon">🎓</span>
                 <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-            </div>
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
                 <li><a href="skills.html" class="nav-link active">Browse Skills</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
             </ul>
             <div class="nav-actions">
                 <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
                 <a href="dashboard.html" class="btn btn-ghost">My Account</a>
-                <a href="login.html" class="btn btn-secondary" onclick="API.auth.logout()">Logout</a>
+                <button class="btn btn-secondary btn-sm" onclick="API.auth.logout()">Logout</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="skills-hero">
+    <section class="browse-hero">
         <div class="container">
-            <h1 class="page-title">Discover <span class="gradient-text">Amazing Skills</span></h1>
-            <p class="page-subtitle">Learn from talented peers on campus</p>
+            <div class="browse-hero-content">
+                <h1 class="browse-hero-title">
+                    Discover <span class="gradient-text">Amazing Skills</span>
+                </h1>
+                <p class="browse-hero-sub">Learn from talented peers on campus — book a session in seconds</p>
+            </div>
 
             <!-- Search and Filter -->
-            <div class="search-filter-container">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
+            <div class="browse-search-wrap">
+                <div class="browse-search-box">
+                    <svg class="browse-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
                     <input type="text" id="skillSearch"
                         placeholder="Search for skills (e.g., Python, Guitar, Basketball...)">
                 </div>
 
-                <div class="filter-chips">
-                    <button class="filter-chip active" data-category="all">All</button>
-                    <button class="filter-chip" data-category="technical">💻 Technical</button>
-                    <button class="filter-chip" data-category="arts">🎨 Arts</button>
-                    <button class="filter-chip" data-category="sports">⚽ Sports</button>
-                    <button class="filter-chip" data-category="fitness">💪 Fitness</button>
-                    <button class="filter-chip" data-category="other">✨ Other</button>
+                <div class="browse-chips">
+                    <button class="browse-chip active" data-category="all">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                        All
+                    </button>
+                    <button class="browse-chip" data-category="programming">💻 Programming</button>
+                    <button class="browse-chip" data-category="arts & design">🎨 Arts & Design</button>
+                    <button class="browse-chip" data-category="music">🎵 Music</button>
+                    <button class="browse-chip" data-category="sports">⚽ Sports</button>
+                    <button class="browse-chip" data-category="fitness">💪 Fitness</button>
+                    <button class="browse-chip" data-category="language">🌐 Language</button>
+                    <button class="browse-chip" data-category="other">✨ Other</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Grid -->
-    <section class="skills-section">
+    <section class="browse-results">
         <div class="container">
-            <div class="skills-header">
-                <h2 id="resultsCount">Showing 18 skills</h2>
-                <select id="sortBy" class="sort-select">
+            <div class="browse-results-bar">
+                <h2 id="resultsCount" class="browse-results-count">Loading skills...</h2>
+                <select id="sortBy" class="browse-sort">
                     <option value="popular">Most Popular</option>
                     <option value="rating">Highest Rated</option>
                     <option value="recent">Recently Added</option>
@@ -75,11 +95,93 @@
                 </select>
             </div>
 
-            <div id="skillsGrid" class="skills-browse-grid">
+            <div id="skillsGrid" class="browse-grid">
                 <!-- Skills will be dynamically loaded here -->
+                <div class="browse-loading">
+                    <div class="browse-loading-spinner"></div>
+                    <p>Loading skills...</p>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Booking Request Modal -->
+    <div id="bookingModal" class="booking-modal-overlay">
+        <div class="booking-modal">
+            <div class="booking-modal-header">
+                <span class="booking-modal-title">📅 Request a Session</span>
+                <button class="booking-modal-close" id="closeBookingModal" aria-label="Close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="booking-modal-body">
+                <div class="booking-skill-info">
+                    <div class="booking-skill-icon">🎯</div>
+                    <div>
+                        <div class="booking-skill-name" id="bookingSkillName">Skill Name</div>
+                        <div class="booking-skill-tutor" id="bookingSkillTutor">by Tutor</div>
+                    </div>
+                </div>
+                <form id="bookingForm">
+                    <input type="hidden" id="bookingSkillId" value="">
+                    <div class="form-group">
+                        <label class="form-label">Preferred Date</label>
+                        <input type="date" id="bookingDate" class="form-input" required>
+                    </div>
+                    <div class="booking-time-row">
+                        <div class="form-group">
+                            <label class="form-label">Preferred Time</label>
+                            <div class="time-select-group">
+                                <select id="bookingHour" class="form-input" required>
+                                    <option value="12">12</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="11">11</option>
+                                </select>
+                                <span class="time-colon">:</span>
+                                <select id="bookingMinute" class="form-input" required>
+                                    <option value="00" selected>00</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+                                </select>
+                                <select id="bookingAmPm" class="form-input" required>
+                                    <option value="AM" selected>AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message for the tutor</label>
+                        <textarea id="bookingMessage" class="form-input" rows="3"
+                            placeholder="Hi! I'd love to learn this skill. I'm a quick learner and flexible with timing."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="booking-modal-footer">
+                <button type="button" class="btn btn-primary btn-glow" id="submitBookingBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Send Request
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -109,10 +211,9 @@
         </div>
     </footer>
 
+    <script src="toast.js"></script>
     <script src="api.js"></script>
-    <script src="script.js"></script>
     <script src="theme.js"></script>
-    <script src="animations.js"></script>
     <script src="skills-page.js"></script>
 </body>
 

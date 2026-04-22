@@ -1,7 +1,7 @@
 // Registration page functionality
 
 // Check if already logged in
-if (API && API.auth.isAuthenticated()) {
+if (localStorage.getItem('token')) {
     window.location.href = '/dashboard.html';
 }
 
@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Validate passwords match
             if (password !== confirmPassword) {
-                alert('Passwords do not match!');
+                showToast('Passwords do not match!', 'error');
                 return;
             }
 
             // Validate password length
             if (password.length < 6) {
-                alert('Password must be at least 6 characters long!');
+                showToast('Password must be at least 6 characters long!', 'warning');
                 return;
             }
 
@@ -52,15 +52,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     phone: phone || null
                 };
 
-                const response = await API.auth.register(userData);
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                });
 
-                // Show success message
-                alert('Account created successfully! Please login.');
+                const data = await response.json();
 
-                // Redirect to login page
-                window.location.href = '/login.html';
+                if (response.ok && data.token) {
+                    // Store token and user data for auto-login
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    // Show success toast
+                    showToast('Account created successfully! Redirecting...', 'success');
+
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 800);
+                } else {
+                    showToast(data.message || 'Registration failed. Please try again.', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
             } catch (error) {
-                alert(error.message || 'Registration failed. Please try again.');
+                console.error('Registration error:', error);
+                showToast('Registration failed. Please try again.', 'error');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }

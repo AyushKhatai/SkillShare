@@ -126,7 +126,7 @@
 .form-group select:focus {
     background: rgba(15, 23, 42, 0.8);
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
     transform: translateY(-1px);
 }
 

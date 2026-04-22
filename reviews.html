@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews - SkillShare Hub</title>
+    <title>My Reviews - SkillShare Hub</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,7 @@
             margin-bottom: var(--spacing-sm);
             background: var(--primary-gradient);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -62,9 +63,23 @@
             gap: var(--spacing-md);
         }
 
+        .reviewer-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1rem;
+        }
+
         .review-stars {
             color: #fbbf24;
             font-size: 1.25rem;
+            letter-spacing: 2px;
         }
 
         .review-skill {
@@ -77,11 +92,65 @@
             color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: var(--spacing-sm);
+            font-style: italic;
         }
 
         .review-date {
             color: var(--text-muted);
             font-size: 0.875rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Review Form Modal */
+        .review-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review-modal {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            width: 100%;
+            max-width: 480px;
+            margin: 1rem;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .star-rating button {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #d1d5db;
+            transition: color 0.15s;
+        }
+
+        .star-rating button.active,
+        .star-rating button:hover {
+            color: #fbbf24;
         }
     </style>
 </head>
@@ -105,86 +174,131 @@
             <p style="color: var(--text-secondary); font-size: 1.1rem;">Feedback from your learning sessions</p>
         </div>
 
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="requester-avatar">SM</div>
-                    <div>
-                        <h4>Sarah Miller</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Computer Science, 2nd Year</p>
-                    </div>
-                </div>
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <div id="reviewsList">
+            <div class="empty-state">
+                <div class="empty-icon">⏳</div>
+                <p>Loading reviews...</p>
             </div>
-            <div class="review-skill">Web Development Session</div>
-            <p class="review-text">
-                "John is an amazing tutor! He explained React concepts so clearly and patiently.
-                The hands-on project we built together really helped me understand component lifecycle.
-                Highly recommend!"
-            </p>
-            <div class="review-date">2 days ago</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="requester-avatar">MJ</div>
-                    <div>
-                        <h4>Mike Johnson</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Electrical Engineering, 3rd Year
-                        </p>
-                    </div>
-                </div>
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            </div>
-            <div class="review-skill">Python Programming Session</div>
-            <p class="review-text">
-                "Best Python tutor on campus! The way he breaks down complex algorithms into simple steps is incredible.
-                I aced my data structures exam thanks to these sessions."
-            </p>
-            <div class="review-date">5 days ago</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="requester-avatar">EW</div>
-                    <div>
-                        <h4>Emma Watson</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Arts & Design, 1st Year</p>
-                    </div>
-                </div>
-                <div class="review-stars">⭐⭐⭐⭐</div>
-            </div>
-            <div class="review-skill">Guitar Playing Session</div>
-            <p class="review-text">
-                "Great session! Learned so many new chords and strumming patterns.
-                Would have been perfect with a bit more time for practice. Looking forward to the next session!"
-            </p>
-            <div class="review-date">1 week ago</div>
-        </div>
-
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="requester-avatar">AT</div>
-                    <div>
-                        <h4>Alex Turner</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Business, 3rd Year</p>
-                    </div>
-                </div>
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            </div>
-            <div class="review-skill">Web Development Session</div>
-            <p class="review-text">
-                "Phenomenal teaching style! John made JavaScript so much easier to understand.
-                The real-world examples and projects were super helpful. Can't wait for advanced sessions!"
-            </p>
-            <div class="review-date">2 weeks ago</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Review Submit Modal -->
+    <div class="review-modal-overlay" id="reviewModal">
+        <div class="review-modal">
+            <h3 style="margin-bottom:0.5rem;">Leave a Review</h3>
+            <p id="reviewSkillName" style="color:var(--primary-color); font-weight:600; margin-bottom:1rem;"></p>
+            <div class="star-rating" id="starRating">
+                <button type="button" data-val="1" onclick="setRating(1)">★</button>
+                <button type="button" data-val="2" onclick="setRating(2)">★</button>
+                <button type="button" data-val="3" onclick="setRating(3)">★</button>
+                <button type="button" data-val="4" onclick="setRating(4)">★</button>
+                <button type="button" data-val="5" onclick="setRating(5)">★</button>
+            </div>
+            <textarea id="reviewComment" class="form-input" rows="4" placeholder="Share your experience..." style="width:100%; margin-bottom:1rem;"></textarea>
+            <div style="display:flex; gap:0.75rem; justify-content:flex-end;">
+                <button class="btn btn-ghost" onclick="closeReviewModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitReview()">Submit Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="toast.js"></script>
+    <script src="api.js"></script>
+    <script src="theme.js"></script>
+    <script>
+        let selectedRating = 0;
+        let currentSkillId = null;
+
+        async function loadReviews() {
+            const list = document.getElementById('reviewsList');
+            try {
+                const data = await API.reviews.getMyReviews();
+                const reviews = Array.isArray(data) ? data : (data.reviews || []);
+
+                if (reviews.length === 0) {
+                    list.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">💬</div>
+                            <p style="font-size:1.1rem; margin-bottom:0.5rem;">No reviews yet</p>
+                            <p style="font-size:0.875rem;">Reviews you've written will appear here</p>
+                        </div>`;
+                    return;
+                }
+
+                list.innerHTML = reviews.map(r => {
+                    const stars = '⭐'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                    const initials = (r.full_name || 'U').split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+                    const date = r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+                    return `
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">${initials}</div>
+                                <div>
+                                    <h4>${escapeHtml(r.full_name || 'You')}</h4>
+                                    <p style="color:var(--text-muted); font-size:0.8rem;">${date}</p>
+                                </div>
+                            </div>
+                            <div class="review-stars">${stars}</div>
+                        </div>
+                        <div class="review-skill">${escapeHtml(r.skill_title || 'Skill')}</div>
+                        ${r.comment ? `<p class="review-text">"${escapeHtml(r.comment)}"</p>` : ''}
+                    </div>`;
+                }).join('');
+            } catch (e) {
+                list.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><p>Failed to load reviews. Please login first.</p></div>`;
+            }
+        }
+
+        function openReviewModal(skillId, skillTitle) {
+            currentSkillId = skillId;
+            selectedRating = 0;
+            document.getElementById('reviewSkillName').textContent = skillTitle;
+            document.getElementById('reviewComment').value = '';
+            setRating(0);
+            document.getElementById('reviewModal').style.display = 'flex';
+        }
+
+        function closeReviewModal() {
+            document.getElementById('reviewModal').style.display = 'none';
+        }
+
+        function setRating(val) {
+            selectedRating = val;
+            document.querySelectorAll('#starRating button').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.val) <= val);
+            });
+        }
+
+        async function submitReview() {
+            if (!selectedRating) { showToast('Please select a star rating', 'error'); return; }
+            if (!currentSkillId) return;
+            const comment = document.getElementById('reviewComment').value.trim();
+            try {
+                await API.reviews.createReview({ skill_id: currentSkillId, rating: selectedRating, comment });
+                showToast('Review submitted! ⭐', 'success');
+                closeReviewModal();
+                loadReviews();
+            } catch (e) {
+                showToast('Failed: ' + e.message, 'error');
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        loadReviews();
+
+        // Auto-open modal if coming from dashboard Review button
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('skill_id')) {
+            openReviewModal(parseInt(params.get('skill_id')), decodeURIComponent(params.get('skill_title') || 'Skill'));
+        }
+    </script>
 </body>
 
 </html>
