@@ -1,319 +1,152 @@
-# Campus Skill Share - Fullstack Project
+<br/>
+<div align="center">
 
-A modern, fullstack campus skill-sharing platform where college students can share and learn skills from each other.
+# 🎓 Campus Skill Share
+**A modern, full-stack peer-to-peer learning platform designed for college students.**
 
-## 🚀 Features
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-### Frontend
-- **Modern UI/UX**: Beautiful, responsive design with glassmorphism effects
-- **Landing Page**: Engaging homepage with features showcase
-- **Authentication**: Login and registration pages
-- **Dashboard**: User dashboard for managing skills and bookings
-- **Skills Browsing**: Browse and filter available skills
-- **Resume Linking**: Option to attach and view resumes/portfolios for Programming skills
-- **Reviews System**: Rate and review skills
-- **Live Messaging**: Interactive real-time chat between students and teachers
-- **User Profiles**: Comprehensive user profiles showcasing shared skills
-- **Community Leaderboard**: Gamification and top skills ranking system
-- **Smart Notifications**: Beautiful toast notifications for a smooth UX
+*Connect, Learn, and Share Skills on Campus.*
 
-### Backend
-- **RESTful API**: Complete REST API with Express.js
-- **Authentication**: JWT-based authentication system
-- **Database**: PostgreSQL database with comprehensive schema
-- **CRUD Operations**: Full CRUD for users, skills, bookings, and reviews
-- **Authorization**: Role-based access control
-- **Validation**: Input validation with express-validator
-- **Error Handling**: Comprehensive error handling middleware
-
-## 📁 Project Structure
-
-```
-campus-skill-share/
-├── Frontend Files
-│   ├── index.html              # Landing page
-│   ├── login.html              # Login page
-│   ├── register.html           # Registration page
-│   ├── dashboard.html          # User dashboard
-│   ├── skills.html             # Skills browsing page
-│   ├── reviews.html            # Reviews page
-│   ├── style.css               # Main styles
-│   ├── auth.css                # Authentication styles
-│   ├── dashboard.css           # Dashboard styles
-│   ├── skills-page.css         # Skills page styles
-│   ├── script.js               # Main JavaScript
-│   ├── dashboard.js            # Dashboard JavaScript
-│   ├── skills-page.js          # Skills page JavaScript
-│   ├── api.js                  # API service layer
-│   ├── auth-login.js           # Login handler
-│   └── auth-register.js        # Registration handler
-│
-├── Backend Files
-│   ├── server.js               # Express server
-│   ├── config/
-│   │   └── database.js         # Database configuration
-│   ├── controllers/
-│   │   ├── authController.js   # Authentication logic
-│   │   ├── userController.js   # User management
-│   │   ├── skillController.js  # Skill management
-│   │   ├── bookingController.js# Booking management
-│   │   └── reviewController.js # Review management
-│   ├── middleware/
-│   │   ├── authMiddleware.js   # JWT authentication
-│   │   ├── validation.js       # Input validation
-│   │   └── errorHandler.js     # Error handling
-│   ├── models/
-│   │   ├── User.js             # User model
-│   │   ├── Skill.js            # Skill model
-│   │   ├── Booking.js          # Booking model
-│   │   └── Review.js           # Review model
-│   ├── routes/
-│   │   ├── auth.js             # Auth routes
-│   │   ├── users.js            # User routes
-│   │   ├── skills.js           # Skill routes
-│   │   ├── bookings.js         # Booking routes
-│   │   └── reviews.js          # Review routes
-│   └── database/
-│       └── schema.sql          # Database schema
-│
-├── Configuration
-│   ├── .env                    # Environment variables
-│   ├── package.json            # Dependencies
-│   └── package-lock.json       # Dependency lock file
-│
-└── Documentation
-    ├── README.md               # This file
-    └── BACKEND_SETUP.md        # Backend setup guide
-```
-
-## 🛠️ Tech Stack
-
-### Frontend
-- HTML5
-- CSS3 (with modern features like CSS Grid, Flexbox, Animations)
-- Vanilla JavaScript (ES6+)
-- Google Fonts (Inter, Outfit)
-
-### Backend
-- Node.js
-- Express.js
-- PostgreSQL
-- JWT (JSON Web Tokens)
-- bcrypt (Password hashing)
-
-### Dependencies
-- express: ^5.2.1
-- pg: ^8.18.0
-- bcrypt: ^6.0.0
-- jsonwebtoken: ^9.0.3
-- dotenv: ^17.2.4
-- cors: ^2.8.6
-- express-validator: ^7.3.1
-
-## 📦 Installation
-
-### Prerequisites
-- Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- npm or yarn
-
-### Step 1: Install Dependencies
-```bash
-npm install
-```
-
-### Step 2: Install nodemon (for development)
-```bash
-npm install --save-dev nodemon
-```
-
-### Step 3: Database Setup
-
-1. Create PostgreSQL database:
-```sql
-CREATE DATABASE campus_skill_share;
-```
-
-2. Run the schema:
-```bash
-psql -U postgres -d campus_skill_share -f database/schema.sql
-```
-
-### Step 4: Configure Environment
-The `.env` file is already configured. Update if needed:
-```
-PORT=3000
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=campus_skill_share
-JWT_SECRET=your_secret_key
-JWT_EXPIRE=7d
-```
-
-**Important:** Change `JWT_SECRET` to a secure random string!
-
-### Step 5: Start the Server
-
-Development mode (with auto-reload):
-```bash
-npm run dev
-```
-
-Production mode:
-```bash
-npm start
-```
-
-The server will run on `http://localhost:3000`
-
-## 🔌 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-
-### Users
-- `GET /api/users/profile` - Get current user profile (protected)
-- `PUT /api/users/profile` - Update profile (protected)
-- `GET /api/users/:userId` - Get user by ID
-- `GET /api/users/all` - Get all users
-
-### Skills
-- `GET /api/skills` - Get all skills (with filters)
-- `GET /api/skills/:skillId` - Get skill by ID
-- `POST /api/skills` - Create skill (protected)
-- `PUT /api/skills/:skillId` - Update skill (protected)
-- `DELETE /api/skills/:skillId` - Delete skill (protected)
-
-### Bookings
-- `GET /api/bookings` - Get all bookings (protected)
-- `POST /api/bookings` - Create booking (protected)
-- `PUT /api/bookings/:bookingId/status` - Update booking status (protected)
-
-### Reviews
-- `GET /api/reviews/skill/:skillId` - Get reviews for skill
-- `POST /api/reviews` - Create review (protected)
-- `PUT /api/reviews/:reviewId` - Update review (protected)
-
-For complete API documentation, see [BACKEND_SETUP.md](BACKEND_SETUP.md)
-
-## 💻 Usage
-
-### Frontend Integration
-
-The frontend automatically connects to the backend API. Include the API service:
-
-```html
-<script src="api.js"></script>
-<script src="auth-login.js"></script> <!-- For login page -->
-<!-- OR -->
-<script src="auth-register.js"></script> <!-- For registration page -->
-```
-
-### Example API Usage
-
-```javascript
-// Login
-API.auth.login({ email, password })
-  .then(response => {
-    // Handle success
-  })
-  .catch(error => {
-    // Handle error
-  });
-
-// Get skills
-API.skills.getAllSkills({ category: 'Programming' })
-  .then(response => {
-    console.log(response.skills);
-  });
-
-// Create booking
-API.bookings.createBooking({
-  skill_id: 1,
-  booking_date: '2026-02-15',
-  booking_time: '14:00:00'
-})
-  .then(response => {
-    console.log('Booking created!');
-  });
-```
-
-## 🗄️ Database Schema
-
-### Tables
-- **users**: User accounts and profiles
-- **skills**: Skills offered by users (includes resume/portfolio links)
-- **bookings**: Booking sessions between students and teachers
-- **reviews**: Reviews and ratings for skills
-
-See `database/schema.sql` for complete schema details.
-
-## 🔒 Security Features
-
-- Password hashing with bcrypt
-- JWT-based authentication
-- Protected routes with middleware
-- Input validation and sanitization
-- SQL injection prevention with parameterized queries
-- CORS configuration
-- Error handling without exposing sensitive data
-
-## 🚧 Development
-
-### Running in Development Mode
-```bash
-npm run dev
-```
-
-This uses nodemon to automatically restart the server when files change.
-
-### Testing the API
-
-Use tools like:
-- Postman
-- Thunder Client (VS Code extension)
-- cURL
-
-Example:
-```bash
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@college.edu","password":"password123"}'
-```
-
-## 📝 To-Do / Future Enhancements
-
-- [x] Real-time notifications
-- [x] Chat system between students and teachers
-- [x] Advanced profiles and leaderboard
-- [ ] File upload for profile and skill images
-- [ ] Email verification for registration
-- [ ] Password reset functionality
-- [ ] Advanced search and filtering
-- [ ] Calendar integration for bookings
-- [ ] Payment integration
-- [ ] Admin dashboard
-- [ ] Analytics and reporting
-
-## 🤝 Contributing
-
-This is a college project. Feel free to fork and modify for your own use.
-
-## 📄 License
-
-ISC
-
-## 👨‍💻 Author
-
-Ayush Khatai
-
-## 📞 Support
-
-For issues or questions, please refer to the documentation or create an issue in the repository.
+</div>
 
 ---
 
-**Happy Skill Sharing! 🎓✨**
+## 📖 About The Project
+
+**Campus Skill Share** is a dynamic web application that connects university students to foster a collaborative learning environment. Whether you're looking to master Python, learn guitar, or need help with calculus, this platform enables students to discover peers with those skills, book learning sessions, chat in real-time, and leave reviews. 
+
+The application is built completely from scratch using Vanilla Web Technologies (HTML/CSS/JS) for a lightning-fast frontend that utilizes modern glassmorphism aesthetics, backed by a robust Node.js/Express API and a relational PostgreSQL database.
+
+---
+
+## ✨ Power-Packed Features
+
+### 🎨 Frontend Experience
+*   **Vibrant, Modern UI:** High-end glassmorphism elements, fluid animations, and a responsive layout designed for all devices.
+*   **Live Messaging System:** Real-time, peer-to-peer interactive chat capabilities right from your dashboard.
+*   **Dynamic Leaderboard:** A gamified global leaderboard showcasing the top-rated skills and contributors on campus.
+*   **Detailed User Profiles:** Dedicated profile pages displaying users' top skills, resumes/portfolios, and contact preferences.
+*   **Smart Toast Notifications:** Non-intrusive, beautifully styled push notifications replacing traditional browser alerts.
+*   **Resume/Portfolio Linking:** Specifically targeted for Programming & Design skills, allowing tutors to attach their professional URLs.
+
+### ⚙️ Backend Architecture
+*   **RESTful API Engine:** Modular and highly scalable Express routing.
+*   **Secure Authentication:** Industrial-grade JWT (JSON Web Tokens) based auth and Bcrypt password hashing.
+*   **Relational Database:** Complex PostgreSQL schemas mapping out Users, Skills, Bookings, Messages, and Reviews.
+*   **Role-Based Data Access:** Ensuring users can only edit or view the messages/skills they are authorized to access.
+*   **Sanitization & Validation:** Defensive programming with Express-Validator protecting against SQL injections and bad payloads.
+
+---
+
+## 🛠️ Technology Stack
+
+| Area | Technologies Used |
+| :--- | :--- |
+| **Frontend** | HTML5, Advanced CSS3 (Animations, Variables), Vanilla ES6+ JavaScript |
+| **Backend** | Node.js, Express.js |
+| **Database** | PostgreSQL, node-postgres (`pg`) |
+| **Security** | `bcrypt`, `jsonwebtoken`, `cors`, `dotenv` |
+
+---
+
+## 🚀 Deployment Guide (Production)
+
+Deploying this highly integrated full-stack application requires three distinct components: The Database, the Backend REST API, and the Frontend Client.
+
+### Step 1: Database Deployment (Neon / Supabase)
+We recommend **Neon** or **Supabase** for a free, serverless Postgres database.
+1. Create a free account on [Neon.tech](https://neon.tech) or [Supabase](https://supabase.com).
+2. Create a new project/database.
+3. Grab the **Connection URI string** (e.g., `postgresql://user:password@host/dbname`).
+4. Execute the SQL commands found in `database/schema.sql` via their SQL Query Editor to build your tables.
+
+### Step 2: Backend API Deployment (Render / Railway)
+We recommend **Render.com** to host the Express API for free.
+1. Sign up on [Render.com](https://render.com) and click **New -> Web Service**.
+2. Connect your GitHub repository (`AyushKhatai/SkillShare`), and ensure the Root Directory points to the backend location.
+3. **Build Command:** `npm install`
+4. **Start Command:** `node server.js`
+5. **Environment Variables:**
+   *   `DATABASE_URL` = (Paste your Neon/Supabase Connection String from Step 1)
+   *   `JWT_SECRET` = (Random 64+ char secret string)
+   *   `PORT` = `3000`
+6. Click **Deploy**. Once successfully deployed, copy the Render API URL (e.g., `https://skillshare-api.onrender.com`).
+
+### Step 3: Frontend Deployment (Vercel / Netlify)
+Before deploying the frontend, update the API URLs!
+1. **Critical:** In your frontend `.js` files (like `api.js` or `script.js`), change all `http://localhost:3000` requests to your newly deployed backend URL (`https://skillshare-api.onrender.com`).
+2. Go to [Vercel](https://vercel.com/) or [Netlify](https://netlify.com/) and create a new project.
+3. Connect your GitHub repository.
+4. Leave build commands blank (since it's vanilla HTML/CSS/JS).
+5. Deploy the application! 
+
+---
+
+## 💻 Local Development Setup
+
+If you wish to run the project locally instead of production:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/AyushKhatai/SkillShare.git
+   cd campus-skill-share
+   ```
+
+2. **Install node packages:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure local database:**
+   * Install PostgreSQL locally.
+   * Run the commands in `database/schema.sql`.
+   * Create a `.env` file in the root directory:
+     ```env
+     PORT=3000
+     DB_HOST=localhost
+     DB_USER=postgres
+     DB_PASSWORD=your_password
+     DB_NAME=campus_skill_share
+     DB_PORT=5432
+     JWT_SECRET=supersecretkey
+     ```
+
+4. **Launch the backend server:**
+   ```bash
+   # Development Server
+   npm run dev
+   ```
+
+5. **Launch the frontend client:**
+   * Open `index.html` in your browser. (We highly recommend using the **Live Server** extension in VS Code for live-reloading!)
+
+---
+
+## 🗄️ Core Database Architecture
+
+*   **`users`**: Manages credentials, roles, and profile imagery.
+*   **`skills`**: Connects heavily to the `users` table via foreign keys. Stores category, experience, hourly rate, and portfolio URLs.
+*   **`bookings`**: Stores session data with `status` enums (`pending`, `confirmed`, `rejected`).
+*   **`messages`**: Ties two users together (sender & receiver) for the live chat ecosystem.
+*   **`reviews`**: Handles 1-5 star ratings dynamically factored into the global Leaderboard.
+
+---
+
+## 🔮 Future Roadmap
+- [ ] File upload integrations for profile avatars & skill thumbnails.
+- [ ] Automated Email verification upon user registration.
+- [ ] Integrated Video Calling / Virtual Classroom for remote sessions.
+- [ ] Calendar Sync API integrations (Google Calendar).
+
+---
+
+<br/>
+<div align="center">
+  <b>Designed and Developed by Ayush Khatai</b><br>
+  <a href="https://github.com/AyushKhatai">GitHub Profile</a>
+</div>
+<br/>
