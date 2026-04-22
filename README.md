@@ -12,6 +12,10 @@ A modern, fullstack campus skill-sharing platform where college students can sha
 - **Skills Browsing**: Browse and filter available skills
 - **Resume Linking**: Option to attach and view resumes/portfolios for Programming skills
 - **Reviews System**: Rate and review skills
+- **Live Messaging**: Interactive real-time chat between students and teachers
+- **User Profiles**: Comprehensive user profiles showcasing shared skills
+- **Community Leaderboard**: Gamification and top skills ranking system
+- **Smart Notifications**: Beautiful toast notifications for a smooth UX
 
 ### Backend
 - **RESTful API**: Complete REST API with Express.js
@@ -282,11 +286,12 @@ curl -X POST http://localhost:3000/api/auth/login \
 
 ## 📝 To-Do / Future Enhancements
 
+- [x] Real-time notifications
+- [x] Chat system between students and teachers
+- [x] Advanced profiles and leaderboard
 - [ ] File upload for profile and skill images
 - [ ] Email verification for registration
 - [ ] Password reset functionality
-- [ ] Real-time notifications
-- [ ] Chat system between students and teachers
 - [ ] Advanced search and filtering
 - [ ] Calendar integration for bookings
 - [ ] Payment integration
@@ -303,7 +308,7 @@ ISC
 
 ## 👨‍💻 Author
 
-Campus Skill Share Team
+Ayush Khatai
 
 ## 📞 Support
 
