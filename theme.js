@@ -1,21 +1,24 @@
+// ─── Theme Toggle System (Zero-Flash) ─────────────────────
+
+(function () {
+    // Immediate synchronous theme application to prevent FOUC
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+})();
 
 const themeToggle = {
     init: () => {
-        // Check local storage or system preference
-        const savedTheme = localStorage.getItem('theme');
-        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
+        themeToggle.updateIcon(currentTheme === 'dark');
 
-        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            themeToggle.updateIcon(true);
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeToggle.updateIcon(false);
-        }
-
-        // Add event listener to toggle button if it exists
         const toggleBtn = document.getElementById('theme-toggle-btn');
         if (toggleBtn) {
+            toggleBtn.removeEventListener('click', themeToggle.toggle);
             toggleBtn.addEventListener('click', themeToggle.toggle);
         }
     },
@@ -26,7 +29,6 @@ const themeToggle = {
 
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-
         themeToggle.updateIcon(newTheme === 'dark');
     },
 
@@ -39,5 +41,8 @@ const themeToggle = {
     }
 };
 
-// Run on load
-document.addEventListener('DOMContentLoaded', themeToggle.init);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', themeToggle.init);
+} else {
+    themeToggle.init();
+}

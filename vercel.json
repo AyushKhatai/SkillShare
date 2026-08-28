@@ -1,6 +1,10 @@
 {
-  "buildCommand": null,
-  "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://skillshare-o7i1.onrender.com/api/:path*"
+    }
+  ]
 }

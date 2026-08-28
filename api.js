@@ -2,10 +2,13 @@
 const API_BASE_URL = (function() {
     if (typeof window !== 'undefined') {
         const host = window.location.hostname;
+        // Localhost development
         if (host === 'localhost' || host === '127.0.0.1' || host === '') {
             return '/api';
         }
         if (window.SKILLSHARE_API_URL) return window.SKILLSHARE_API_URL;
+        // Production backend on Render
+        return 'https://skillshare-o7i1.onrender.com/api';
     }
     return '/api';
 })();
