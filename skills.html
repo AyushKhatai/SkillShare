@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="skills-page.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,16 +21,24 @@
                 <span class="logo-icon">🎓</span>
                 <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
-                <li><a href="skills.html" class="nav-link active">Browse Skills</a></li>
-                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-                <a href="dashboard.html" class="btn btn-ghost">My Account</a>
-                <button class="btn btn-secondary btn-sm" onclick="API.auth.logout()">Logout</button>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-drawer" id="navDrawer">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="skills.html" class="nav-link active">Browse Skills</a></li>
+                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight">✨ AI Mentor</a></li>
+                    <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                    <li><a href="reviews.html" class="nav-link">Reviews</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <a href="dashboard.html" class="btn btn-ghost" id="navAuthProfile">Dashboard</a>
+                    <button class="btn btn-secondary btn-sm" id="navLogoutBtn" onclick="API.auth.logout()">Logout</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -41,10 +47,27 @@
     <section class="browse-hero">
         <div class="container">
             <div class="browse-hero-content">
+                <div class="badge-ai" style="margin-bottom: 0.75rem;">
+                    <span>⚡</span> 100+ Campus Verified Peer Tutors
+                </div>
                 <h1 class="browse-hero-title">
                     Discover <span class="gradient-text">Amazing Skills</span>
                 </h1>
-                <p class="browse-hero-sub">Learn from talented peers on campus — book a session in seconds</p>
+                <p class="browse-hero-sub">Learn directly from talented peers on your campus — book a 1-on-1 session in seconds</p>
+            </div>
+
+            <!-- AI Matchmaker Callout Banner -->
+            <div style="background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(6, 182, 212, 0.12)); border: 1px solid rgba(124, 58, 237, 0.25); border-radius: var(--radius-xl); padding: 1.25rem 1.5rem; margin: 1.5rem auto 2rem; max-width: 800px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.08);">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="font-size: 1.75rem;">✨</div>
+                    <div>
+                        <strong style="font-size: 0.95rem; color: var(--text-primary);">Need something specific for a class or hackathon?</strong>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary); margin: 0;">Our AI Matchmaker connects you with tutors tailored to your exact syllabus.</p>
+                    </div>
+                </div>
+                <a href="ai-mentor.html" class="btn btn-ai-glow btn-sm" style="text-decoration: none;">
+                    Try AI Matchmaker →
+                </a>
             </div>
 
             <!-- Search and Filter -->
@@ -56,7 +79,7 @@
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
                     <input type="text" id="skillSearch"
-                        placeholder="Search for skills (e.g., Python, Guitar, Basketball...)">
+                        placeholder="Search by topic, tutor name, or keyword (e.g., React, Python, Guitar, UI Design...)">
                 </div>
 
                 <div class="browse-chips">
@@ -109,7 +132,7 @@
     <div id="bookingModal" class="booking-modal-overlay">
         <div class="booking-modal">
             <div class="booking-modal-header">
-                <span class="booking-modal-title">📅 Request a Session</span>
+                <span class="booking-modal-title">📅 Request a 1-on-1 Session</span>
                 <button class="booking-modal-close" id="closeBookingModal" aria-label="Close">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.5">
@@ -157,60 +180,32 @@
                                     <option value="30">30</option>
                                     <option value="45">45</option>
                                 </select>
-                                <select id="bookingAmPm" class="form-input" required>
-                                    <option value="AM" selected>AM</option>
-                                    <option value="PM">PM</option>
+                                <select id="bookingAmpm" class="form-input time-ampm" required>
+                                    <option value="AM">AM</option>
+                                    <option value="PM" selected>PM</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Message for the tutor</label>
-                        <textarea id="bookingMessage" class="form-input" rows="3"
-                            placeholder="Hi! I'd love to learn this skill. I'm a quick learner and flexible with timing."></textarea>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                            <label class="form-label" style="margin: 0;">Message / Learning Goals</label>
+                            <button type="button" class="btn btn-ghost btn-sm" onclick="insertPrepTemplate()" style="font-size: 0.75rem; color: var(--primary-color);">
+                                ✨ Insert Prep Template
+                            </button>
+                        </div>
+                        <textarea id="bookingMessage" class="form-input form-textarea" rows="3"
+                            placeholder="What specific topics or problems would you like to focus on during this session?"></textarea>
                     </div>
+                    <button type="submit" class="btn btn-primary btn-submit-booking">
+                        Send Booking Request 🚀
+                    </button>
                 </form>
-            </div>
-            <div class="booking-modal-footer">
-                <button type="button" class="btn btn-primary btn-glow" id="submitBookingBtn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.5">
-                        <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    Send Request
-                </button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-icon">🎓</span>
-                        <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-                    </div>
-                    <p class="footer-tagline">Empowering campus learning, one skill at a time.</p>
-                </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="skills.html">Browse Skills</a></li>
-                            <li><a href="dashboard.html">Dashboard</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 SkillShare Hub. Built for campus communities.</p>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Scripts -->
     <script src="toast.js"></script>
     <script src="api.js"></script>
     <script src="theme.js"></script>

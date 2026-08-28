@@ -181,10 +181,17 @@ ul {
     right: 0;
     z-index: 1000;
     background-color: var(--glass-bg);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
-    padding: 1rem 0;
+    padding: 0.9rem 0;
     transition: all 0.3s ease;
+}
+
+.navbar.navbar-scrolled {
+    background-color: var(--glass-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 0.75rem 0;
 }
 
 .nav-container {
@@ -1538,3 +1545,208 @@ section {
         display: contents;
     }
 }
+
+/* ========================================
+   AI COPILOT & MODERN INTERACTIVE STYLES
+   ======================================== */
+
+.badge-ai {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(6, 182, 212, 0.15));
+    color: var(--primary-color);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.15);
+}
+
+.btn-ai-glow {
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    color: #ffffff;
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35), 0 0 30px rgba(6, 182, 212, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ai-glow:hover {
+    background: linear-gradient(135deg, #6d28d9, #0891b2);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.45), 0 0 40px rgba(6, 182, 212, 0.3);
+}
+
+.btn-ai-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transform: rotate(30deg);
+    animation: aiShimmer 3.5s infinite;
+}
+
+@keyframes aiShimmer {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.nav-link.nav-ai-highlight {
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* AI Matchmaker Cards */
+.ai-match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.ai-match-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ai-match-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.15);
+}
+
+.ai-score-pill {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.ai-reasoning-box {
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary-color);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* AI Roadmap Visualizer */
+.roadmap-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.roadmap-week-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s ease;
+}
+
+.roadmap-week-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.12);
+}
+
+.roadmap-week-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.roadmap-week-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+}
+
+.roadmap-week-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.roadmap-badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+}
+
+.roadmap-badge {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.roadmap-tutor-tip {
+    background: rgba(6, 182, 212, 0.08);
+    border: 1px dashed var(--accent-color);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-surface) 50%, var(--bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes skeletonLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

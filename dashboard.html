@@ -86,6 +86,15 @@
                         </a>
                     </li>
                     <li class="dash-menu-item">
+                        <a href="ai-mentor.html" class="dash-menu-link" style="color: var(--primary-color); font-weight: 700;">
+                            <span class="dash-menu-icon">
+                                <span style="font-size: 1.1rem;">✨</span>
+                            </span>
+                            <span>AI Campus Mentor</span>
+                            <span class="badge-ai" style="margin-left: auto; font-size: 0.65rem;">NEW</span>
+                        </a>
+                    </li>
+                    <li class="dash-menu-item">
                         <a href="skills.html" class="dash-menu-link">
                             <span class="dash-menu-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -332,9 +341,14 @@
             </div>
             <form id="addSkillForm" class="dash-modal-form">
                 <div class="form-group">
-                    <label class="form-label">Skill Title</label>
-                    <input type="text" name="title" class="form-input" required
-                        placeholder="e.g. Advanced Python Programming">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                        <label class="form-label" style="margin: 0;">Skill Title</label>
+                        <button type="button" class="btn btn-ghost btn-sm" id="aiEnhanceSkillBtn" onclick="enhanceSkillWithAI()" style="color: var(--primary-color); font-size: 0.75rem; padding: 0.2rem 0.6rem; border: 1px dashed var(--primary-color); border-radius: var(--radius-full);">
+                            ✨ Polish with AI
+                        </button>
+                    </div>
+                    <input type="text" name="title" id="skillTitleInput" class="form-input" required
+                        placeholder="e.g. Advanced Python, UI/UX Design, Guitar">
                 </div>
                 <div class="dash-form-row">
                     <div class="form-group">

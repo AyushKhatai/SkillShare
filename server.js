@@ -26,6 +26,7 @@ app.use('/api/skills', require('./routes/skills'));
 app.use('/api/bookings', require('./routes/bookings'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/ai', require('./routes/ai'));
 
 app.get('/api/config', (req, res) => {
   res.json({
@@ -37,14 +38,15 @@ app.get('/api/config', (req, res) => {
 app.get('/api', (req, res) => {
   res.json({
     message: "Campus Skill Share API 🚀",
-    version: "1.0.0",
+    version: "2.0.0",
     endpoints: {
       auth: "/api/auth",
       users: "/api/users",
       skills: "/api/skills",
       bookings: "/api/bookings",
       reviews: "/api/reviews",
-      messages: "/api/messages"
+      messages: "/api/messages",
+      ai: "/api/ai"
     }
   });
 });

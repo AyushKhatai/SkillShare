@@ -438,4 +438,64 @@ async function loadUnreadMessages() {
     }
 }
 
+// ─── AI Skill Enhancer ────────────────
+window.enhanceSkillWithAI = async function() {
+    const titleInput = document.getElementById('skillTitleInput') || document.querySelector('#addSkillForm input[name="title"]');
+    const categorySelect = document.getElementById('categorySelect') || document.querySelector('#addSkillForm select[name="category"]');
+    const levelSelect = document.querySelector('#addSkillForm select[name="skill_level"]');
+    const descInput = document.querySelector('#addSkillForm textarea[name="description"]');
+    const durationInput = document.querySelector('#addSkillForm input[name="duration"]');
+    const locationInput = document.querySelector('#addSkillForm input[name="location"]');
+    const aiBtn = document.getElementById('aiEnhanceSkillBtn');
+
+    const title = titleInput ? titleInput.value.trim() : '';
+    if (!title) {
+        showToast('Please enter a skill title first (e.g. Python, UI Design, Guitar)', 'warning');
+        if (titleInput) titleInput.focus();
+        return;
+    }
+
+    if (aiBtn) {
+        aiBtn.disabled = true;
+        aiBtn.innerHTML = '⏳ Enhancing...';
+    }
+
+    try {
+        const category = categorySelect ? categorySelect.value : '';
+        const level = levelSelect ? levelSelect.value : '';
+        const notes = descInput ? descInput.value : '';
+
+        const enhanced = await API.ai.enhanceSkill(title, category, level, notes);
+
+        if (titleInput && enhanced.enhancedTitle) titleInput.value = enhanced.enhancedTitle;
+        if (descInput) {
+            let richDesc = `${enhanced.shortDescription || ''}\n\nWhat you'll learn:\n`;
+            (enhanced.learningOutcomes || []).forEach(o => {
+                richDesc += `• ${o}\n`;
+            });
+            if (enhanced.prerequisites) {
+                richDesc += `\nPrerequisites: ${enhanced.prerequisites}`;
+            }
+            descInput.value = richDesc.trim();
+        }
+        if (durationInput && enhanced.suggestedDuration) {
+            durationInput.value = enhanced.suggestedDuration;
+        }
+        if (locationInput && enhanced.recommendedLocation) {
+            locationInput.value = enhanced.recommendedLocation;
+        }
+
+        showToast('Skill description polished with AI! ✨', 'success');
+
+    } catch (error) {
+        console.error('AI enhance error:', error);
+        showToast('Could not enhance with AI: ' + error.message, 'error');
+    } finally {
+        if (aiBtn) {
+            aiBtn.disabled = false;
+            aiBtn.innerHTML = '✨ Polish with AI';
+        }
+    }
+};
+
 const currentUser = API.getUser();

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSense AI Mentor - SkillShare Hub</title>
+    <meta name="description" content="Personalized AI Campus Mentor, Smart Tutor Matchmaker, and 4-Week Learning Roadmap Generator">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .ai-hero {
+            padding: 120px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .ai-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .ai-tab-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-tab-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .ai-tab-btn.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .ai-panel {
+            display: none;
+            max-width: 960px;
+            margin: 0 auto 4rem;
+        }
+
+        .ai-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Chat Panel */
+        .chat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-bot-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-avatar-bot {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .chat-messages-area {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 1rem 1.25rem;
+            border-radius: 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            position: relative;
+        }
+
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-bottom-left-radius: 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--primary-color), #6d28d9);
+            color: #ffffff;
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        .chat-prompt-starters {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .prompt-chip {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.825rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .prompt-chip:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .chat-input-bar {
+            padding: 1rem 1.5rem;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input-field {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input-field:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Matchmaker Form */
+        .ai-tool-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Global Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+            </a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-drawer" id="navDrawer">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
+                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight active">✨ AI Mentor</a></li>
+                    <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                    <li><a href="reviews.html" class="nav-link">Reviews</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <a href="login.html" class="btn btn-ghost" id="navAuthLogin">Login</a>
+                    <a href="register.html" class="btn btn-primary" id="navAuthRegister">Get Started</a>
+                    <a href="dashboard.html" class="btn btn-primary" id="navAuthDashboard" style="display:none;">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="ai-hero">
+            <div class="badge-ai" style="margin-bottom: 1rem;">
+                <span>✨</span> Next-Gen AI Learning Suite
+            </div>
+            <h1 class="hero-title" style="font-size: 2.75rem; margin-bottom: 0.75rem;">
+                SkillSense <span class="gradient-text">AI Copilot</span>
+            </h1>
+            <p class="hero-description" style="max-width: 650px; margin: 0 auto;">
+                Your 24/7 intelligent campus mentor. Match with top student tutors, generate tailored 4-week roadmaps, and practice with diagnostic quizzes.
+            </p>
+
+            <!-- Navigation Tabs -->
+            <div class="ai-tabs">
+                <button class="ai-tab-btn active" data-target="panel-chat">
+                    <span>💬</span> AI Mentor Chat
+                </button>
+                <button class="ai-tab-btn" data-target="panel-match">
+                    <span>🎯</span> Smart Tutor Matchmaker
+                </button>
+                <button class="ai-tab-btn" data-target="panel-roadmap">
+                    <span>🗺️</span> 4-Week Roadmap Generator
+                </button>
+                <button class="ai-tab-btn" data-target="panel-quiz">
+                    <span>⚡</span> Diagnostic Quiz
+                </button>
+            </div>
+        </section>
+
+        <!-- Tab 1: AI Chat Mentor -->
+        <section id="panel-chat" class="ai-panel active">
+            <div class="chat-card">
+                <div class="chat-header">
+                    <div class="chat-bot-info">
+                        <div class="chat-avatar-bot">✨</div>
+                        <div>
+                            <h3 style="font-size: 1.05rem; font-weight: 700; margin: 0;">Aura · Campus AI Mentor</h3>
+                            <span style="font-size: 0.75rem; color: #10b981; display: flex; align-items: center; gap: 0.3rem;">
+                                <span style="width: 7px; height: 7px; background: #10b981; border-radius: 50%; display: inline-block;"></span> Online & Ready to Help
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-ghost btn-sm" onclick="clearChat()" style="font-size: 0.8rem;">Clear</button>
+                </div>
+
+                <div class="chat-messages-area" id="chatMessagesArea">
+                    <div class="chat-msg bot">
+                        Hey there! 👋 I'm <strong>Aura</strong>, your SkillShare AI Campus Mentor. Ask me anything:
+                        <ul style="margin: 0.5rem 0 0 1.25rem; font-size: 0.9rem; list-style-type: disc;">
+                            <li>"Who can teach me React and Web Dev for the upcoming hackathon?"</li>
+                            <li>"How do I prepare for my first Python tutoring session?"</li>
+                            <li>"Give me 3 tips to ace university presentations."</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="chat-prompt-starters">
+                    <button class="prompt-chip" onclick="sendPrompt('Who are the best Python and Web Dev tutors on campus?')">💻 Find Web Dev Tutors</button>
+                    <button class="prompt-chip" onclick="sendPrompt('How does booking a peer tutoring session work?')">❓ How SkillShare Works</button>
+                    <button class="prompt-chip" onclick="sendPrompt('I need a study plan to learn Graphic Design in 1 month.')">🎨 Graphic Design Study Tips</button>
+                    <button class="prompt-chip" onclick="sendPrompt('What skills are currently most popular on campus?')">🔥 Popular Skills</button>
+                </div>
+
+                <form id="chatForm" class="chat-input-bar" onsubmit="handleChatSubmit(event)">
+                    <input type="text" id="chatInput" class="chat-input-field" placeholder="Ask your AI Campus Mentor anything..." autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary" style="border-radius: var(--radius-full); padding: 0.75rem 1.5rem;">
+                        Send 🚀
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Tab 2: Smart Tutor Matchmaker -->
+        <section id="panel-match" class="ai-panel">
+            <div class="ai-tool-card">
+                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🎯</span> Smart Skill & Tutor Matchmaker
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    Describe what you want to learn or achieve in plain English. AI analyzes all campus tutor profiles to find your perfect match.
+                </p>
+
+                <form id="matchForm" onsubmit="handleMatchSubmit(event)">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label class="form-label">What do you want to learn or accomplish?</label>
+                        <input type="text" id="matchQuery" class="form-input" placeholder="e.g. I need to build a fullstack portfolio with Node.js and PostgreSQL" required>
+                    </div>
+
+                    <div class="form-row" style="margin-bottom: 1.5rem;">
+                        <div>
+                            <label class="form-label">Category</label>
+                            <select id="matchCategory" class="form-input">
+                                <option value="all">All Categories</option>
+                                <option value="Programming">Programming & Tech</option>
+                                <option value="Arts & Design">Arts & Design</option>
+                                <option value="Music">Music</option>
+                                <option value="Language">Language</option>
+                                <option value="Fitness">Fitness & Sports</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Your Current Level</label>
+                            <select id="matchLevel" class="form-input">
+                                <option value="all">Any Level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="matchSubmitBtn" class="btn btn-ai-glow" style="width: 100%; padding: 0.9rem;">
+                        ✨ Find My Best Tutor Match
+                    </button>
+                </form>
+
+                <div id="matchResultsArea" style="margin-top: 2rem; display: none;">
+                    <div id="matchAiSummary" class="ai-reasoning-box"></div>
+                    <div id="matchGrid" class="ai-match-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 3: 4-Week Roadmap Generator -->
+        <section id="panel-roadmap" class="ai-panel">
+            <div class="ai-tool-card">
+                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🗺️</span> 4-Week Learning Roadmap Generator
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    Get a personalized week-by-week study plan with practical mini-projects and guidance on how to leverage campus peer tutors.
+                </p>
+
+                <form id="roadmapForm" onsubmit="handleRoadmapSubmit(event)">
+                    <div class="form-row" style="margin-bottom: 1rem;">
+                        <div>
+                            <label class="form-label">Topic / Skill</label>
+                            <input type="text" id="roadmapTopic" class="form-input" placeholder="e.g. Modern React & Next.js, UI/UX Design, Guitar" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Current Experience Level</label>
+                            <select id="roadmapLevel" class="form-input">
+                                <option value="Absolute Beginner">Absolute Beginner</option>
+                                <option value="Beginner with basic concepts">Beginner with basic concepts</option>
+                                <option value="Intermediate">Intermediate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row" style="margin-bottom: 1.5rem;">
+                        <div>
+                            <label class="form-label">Target Milestone / Goal</label>
+                            <input type="text" id="roadmapGoal" class="form-input" placeholder="e.g. Build a campus project, pass exam, create portfolio">
+                        </div>
+                        <div>
+                            <label class="form-label">Study Hours Per Week</label>
+                            <select id="roadmapHours" class="form-input">
+                                <option value="3">3-5 Hours / week</option>
+                                <option value="6" selected>6-10 Hours / week</option>
+                                <option value="12">12+ Hours / week (Intensive)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="roadmapSubmitBtn" class="btn btn-ai-glow" style="width: 100%; padding: 0.9rem;">
+                        🚀 Generate 4-Week Roadmap
+                    </button>
+                </form>
+
+                <div id="roadmapResultsArea" style="margin-top: 2rem; display: none;"></div>
+            </div>
+        </section>
+
+        <!-- Tab 4: Diagnostic Quiz -->
+        <section id="panel-quiz" class="ai-panel">
+            <div class="ai-tool-card">
+                <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>⚡</span> AI Diagnostic Skill Check
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                    Test your understanding before or after a peer tutoring session with a quick 3-question diagnostic quiz.
+                </p>
+
+                <form id="quizForm" onsubmit="handleQuizSubmit(event)" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <input type="text" id="quizTopic" class="form-input" placeholder="Enter topic (e.g. JavaScript Async/Await, Figma Auto-Layout, Git)" style="flex: 1; min-width: 240px;" required>
+                    <select id="quizLevel" class="form-input" style="width: 180px;">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                    <button type="submit" id="quizSubmitBtn" class="btn btn-primary">
+                        Generate Quiz 🎯
+                    </button>
+                </form>
+
+                <div id="quizResultsArea" style="margin-top: 2rem; display: none;"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="toast.js"></script>
+    <script src="api.js"></script>
+    <script src="theme.js"></script>
+    <script src="ai-mentor.js"></script>
+</body>
+
+</html>

@@ -31,10 +31,10 @@
             <div class="nav-drawer" id="navDrawer">
                 <ul class="nav-links">
                     <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                    <li><a href="#skills" class="nav-link">Browse Skills</a></li>
+                    <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
+                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight">✨ AI Mentor</a></li>
                     <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
                 </ul>
                 <div class="nav-actions">
                     <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
@@ -67,16 +67,19 @@
                 Connect with talented peers on campus. Offer your expertise, discover new skills,
                 and build meaningful learning experiences in a trusted community.
             </p>
-            <div class="hero-cta">
+            <div class="hero-cta" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
                 <a href="skills.html" class="btn btn-primary btn-large">
-                    Find a Tutor
+                    Browse Skills
                     <span class="btn-arrow">→</span>
+                </a>
+                <a href="ai-mentor.html" class="btn btn-ai-glow btn-large">
+                    ✨ Ask AI Mentor
                 </a>
                 <a href="#"
                     onclick="if(API && API.auth.isAuthenticated()){ window.location.href='dashboard.html#my-skills'; } else { window.location.href='login.html'; }"
                     class="btn btn-secondary btn-large">
                     Share Your Skill
-                    <span class="btn-icon">✨</span>
+                    <span class="btn-icon">🚀</span>
                 </a>
             </div>
             <div class="hero-stats">

@@ -1,5 +1,14 @@
-// API Configuration and Service
-const API_BASE_URL = 'https://skillshare-o7i1.onrender.com/api';
+// API Configuration and Service - Dynamic host detection
+const API_BASE_URL = (function() {
+    if (typeof window !== 'undefined') {
+        const host = window.location.hostname;
+        if (host === 'localhost' || host === '127.0.0.1' || host === '') {
+            return '/api';
+        }
+        if (window.SKILLSHARE_API_URL) return window.SKILLSHARE_API_URL;
+    }
+    return '/api';
+})();
 
 // Get token from localStorage
 const getToken = () => localStorage.getItem('token');
@@ -365,6 +374,49 @@ const messagesAPI = {
     }
 };
 
+// AI Services API
+const aiAPI = {
+    // Match skills & tutors based on natural language query
+    match: async (query, level = 'all', category = 'all') => {
+        return await apiRequest('/ai/match', {
+            method: 'POST',
+            body: JSON.stringify({ query, level, category })
+        });
+    },
+
+    // Generate a 4-week personalized learning roadmap
+    generateRoadmap: async (topic, currentLevel = 'Beginner', targetGoal = '', hoursPerWeek = 5) => {
+        return await apiRequest('/ai/roadmap', {
+            method: 'POST',
+            body: JSON.stringify({ topic, currentLevel, targetGoal, hoursPerWeek })
+        });
+    },
+
+    // Enhance skill listing for tutors
+    enhanceSkill: async (title, category = '', skill_level = '', notes = '') => {
+        return await apiRequest('/ai/enhance-skill', {
+            method: 'POST',
+            body: JSON.stringify({ title, category, skill_level, notes })
+        });
+    },
+
+    // Generate diagnostic quiz
+    generateQuiz: async (topic, level = 'Beginner') => {
+        return await apiRequest('/ai/quiz', {
+            method: 'POST',
+            body: JSON.stringify({ topic, level })
+        });
+    },
+
+    // Chat with AI campus mentor
+    chatMentor: async (message, conversationHistory = []) => {
+        return await apiRequest('/ai/chat', {
+            method: 'POST',
+            body: JSON.stringify({ message, conversationHistory })
+        });
+    }
+};
+
 // Export all APIs
 window.API = {
     auth: authAPI,
@@ -373,6 +425,7 @@ window.API = {
     bookings: bookingsAPI,
     reviews: reviewsAPI,
     messages: messagesAPI,
+    ai: aiAPI,
     getToken,
     setToken,
     removeToken,

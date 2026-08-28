@@ -158,12 +158,20 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-icon">🎓</span>
                 <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-            </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
+                <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight">✨ AI Mentor</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+                <li><a href="reviews.html" class="nav-link active">Reviews</a></li>
+            </ul>
             <div class="nav-actions">
-                <a href="dashboard.html" class="btn btn-ghost">← Back to Dashboard</a>
+                <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <a href="dashboard.html" class="btn btn-primary btn-sm">Dashboard</a>
             </div>
         </div>
     </nav>

@@ -47,13 +47,11 @@ if (navbar) {
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
 
-        // Add shadow on scroll
-        if (currentScroll > 50) {
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-            navbar.style.background = 'rgba(15, 23, 42, 0.9)';
+        // Add shadow on scroll using theme-aware CSS properties
+        if (currentScroll > 30) {
+            navbar.classList.add('navbar-scrolled');
         } else {
-            navbar.style.boxShadow = 'none';
-            navbar.style.background = 'rgba(15, 23, 42, 0.6)';
+            navbar.classList.remove('navbar-scrolled');
         }
 
         // Update active nav link based on scroll position
