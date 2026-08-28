@@ -13,6 +13,10 @@ const API_BASE_URL = (function() {
     return '/api';
 })();
 
+if (typeof window !== 'undefined') {
+    window.API_BASE_URL = API_BASE_URL;
+}
+
 // Get token from localStorage
 const getToken = () => localStorage.getItem('token');
 

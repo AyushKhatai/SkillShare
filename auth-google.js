@@ -1,36 +1,64 @@
 // Google Authentication Handler
 
 (function () {
+    const DEFAULT_GOOGLE_CLIENT_ID = "430047701131-jkgfdh2hlshv21v222kkunjtu9hmjdok.apps.googleusercontent.com";
+
     // Function to load Google Identity Services script
     function loadGoogleScript(clientId) {
+        const idToUse = clientId || DEFAULT_GOOGLE_CLIENT_ID;
+
+        // If script is already present
+        if (window.google && window.google.accounts) {
+            initGoogleBtn(idToUse);
+            return;
+        }
+
+        const existingScript = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
+        if (existingScript) {
+            existingScript.addEventListener('load', () => initGoogleBtn(idToUse));
+            return;
+        }
+
         const script = document.createElement('script');
         script.src = "https://accounts.google.com/gsi/client";
         script.async = true;
         script.defer = true;
-        script.onload = () => initGoogleBtn(clientId);
+        script.onload = () => initGoogleBtn(idToUse);
+        script.onerror = () => {
+            console.error("Failed to load Google Identity Services SDK");
+            const btnContainer = document.getElementById("google-btn-container");
+            if (btnContainer) {
+                btnContainer.innerHTML = "<p style='color:var(--text-secondary);font-size:0.85rem;text-align:center;'>Google Sign-In unavailable (Network offline)</p>";
+            }
+        };
         document.head.appendChild(script);
     }
 
     // Initialize Google Button
     function initGoogleBtn(clientId) {
-        if (!window.google) {
-            console.error("Google Identity Services not loaded");
+        if (!window.google || !window.google.accounts) {
+            console.warn("Google Identity Services not yet ready");
             return;
         }
 
-        google.accounts.id.initialize({
-            client_id: clientId,
-            callback: handleCredentialResponse,
-            auto_select: false,
-            cancel_on_tap_outside: false
-        });
+        try {
+            google.accounts.id.initialize({
+                client_id: clientId,
+                callback: handleCredentialResponse,
+                auto_select: false,
+                cancel_on_tap_outside: false
+            });
 
-        const btnContainer = document.getElementById("google-btn-container");
-        if (btnContainer) {
-            google.accounts.id.renderButton(
-                btnContainer,
-                { theme: "outline", size: "large", width: 350 }
-            );
+            const btnContainer = document.getElementById("google-btn-container");
+            if (btnContainer) {
+                btnContainer.innerHTML = '';
+                google.accounts.id.renderButton(
+                    btnContainer,
+                    { theme: "outline", size: "large", width: 350, text: "continue_with", shape: "rectangular" }
+                );
+            }
+        } catch (err) {
+            console.error("Failed to initialize Google button:", err);
         }
     }
 
@@ -43,8 +71,10 @@
                 throw new Error("No credential received from Google");
             }
 
+            const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
+
             // Send to backend verification
-            const res = await fetch(`${API_BASE_URL}/auth/google`, {
+            const res = await fetch(`${baseUrl}/auth/google`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,7 +92,9 @@
                 }
 
                 console.log("Google login successful");
-                showToast('Login successful! Redirecting...', 'success');
+                if (typeof showToast === 'function') {
+                    showToast('Login successful! Redirecting...', 'success');
+                }
                 setTimeout(() => { window.location.href = '/dashboard.html'; }, 800);
             } else {
                 throw new Error(data.message || 'Google Auth Failed');
@@ -70,32 +102,29 @@
 
         } catch (error) {
             console.error('Error during Google Auth:', error);
-            showToast('Authentication failed: ' + error.message, 'error');
+            if (typeof showToast === 'function') {
+                showToast('Authentication failed: ' + error.message, 'error');
+            }
         }
     }
 
     // Initializer
     async function init() {
+        // 1. Immediately load Google Script with default client ID to ensure button renders with 0 delay
+        loadGoogleScript(DEFAULT_GOOGLE_CLIENT_ID);
+
+        // 2. Fetch Client ID from backend config in background if available
         try {
-            // Fetch Client ID from backend config
-            const res = await fetch(`${API_BASE_URL}/config`);
+            const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
+            const res = await fetch(`${baseUrl}/config`);
             if (res.ok) {
                 const config = await res.json();
-                if (config.googleClientId) {
-                    console.log("Google Client ID loaded:", config.googleClientId.substring(0, 20) + "...");
-                    loadGoogleScript(config.googleClientId);
-                } else {
-                    console.warn("Google Client ID not configured.");
-                    const container = document.getElementById("google-btn-container");
-                    if (container) {
-                        container.innerHTML = "<p style='color:red;font-size:0.8rem;'>Google Client ID not configured. Please contact administrator.</p>";
-                    }
+                if (config.googleClientId && config.googleClientId !== DEFAULT_GOOGLE_CLIENT_ID) {
+                    initGoogleBtn(config.googleClientId);
                 }
-            } else {
-                console.error("Failed to fetch config");
             }
         } catch (e) {
-            console.error("Failed to load config:", e);
+            // Pre-configured default is already initialized
         }
     }
 
