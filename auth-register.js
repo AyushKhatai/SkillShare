@@ -52,7 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     phone: phone || null
                 };
 
-                const response = await fetch('/api/auth/register', {
+                const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
+                const response = await fetch(`${baseUrl}/auth/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

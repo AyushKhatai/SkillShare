@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.textContent = 'Logging in...';
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
+                const response = await fetch(`${baseUrl}/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -114,7 +115,8 @@ function showPasswordLinkUI(email, message) {
 // Helper function to link password to Google account
 async function linkPasswordToAccount(email, password) {
     try {
-        const response = await fetch('/api/auth/link-password', {
+        const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
+        const response = await fetch(`${baseUrl}/auth/link-password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

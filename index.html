@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkillShare Hub - Share & Learn Skills on Campus</title>
+    <title>SkillShare Hub — Trade what you know. Learn what you don't.</title>
     <meta name="description"
-        content="Connect with peers, share your skills, and learn new ones in a trusted campus environment">
+        content="A campus-exclusive skill exchange. Teach something, learn something, grow together.">
     <script>
         (function(){const t=localStorage.getItem('theme'),d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&d)){document.documentElement.setAttribute('data-theme','dark')}else{document.documentElement.setAttribute('data-theme','light')}})();
     </script>
@@ -14,480 +14,627 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,800&family=JetBrains+Mono:wght@400;500;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🎓</span>
-                <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-            </div>
-            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <div class="nav-drawer" id="navDrawer">
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
-                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight">✨ AI Mentor</a></li>
-                    <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
-                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+
+    <!-- ═══ TOP MARQUEE ═══ -->
+    <div class="top-marquee" aria-hidden="true">
+        <div class="top-marquee__track">
+            <span>★ NEW: AI Mentor is live</span>
+            <span>·</span>
+            <span>500+ students on campus</span>
+            <span>·</span>
+            <span>1,247 sessions completed this semester</span>
+            <span>·</span>
+            <span>★ Teach. Learn. Earn.</span>
+            <span>·</span>
+            <span>★ NEW: AI Mentor is live</span>
+            <span>·</span>
+            <span>500+ students on campus</span>
+            <span>·</span>
+            <span>1,247 sessions completed this semester</span>
+            <span>·</span>
+            <span>★ Teach. Learn. Earn.</span>
+            <span>·</span>
+        </div>
+    </div>
+
+    <!-- ═══ NAV ═══ -->
+    <nav class="nav">
+        <div class="nav__inner">
+            <a class="nav__brand" href="#home">
+                <span class="nav__brand-mark">SH</span>
+                <span class="nav__brand-name">skillshare<i>/</i>hub</span>
+            </a>
+            <div class="nav__drawer" id="navDrawer">
+                <ul class="nav__list">
+                    <li><a href="#home" class="nav__link nav-link is-active">Home</a></li>
+                    <li><a href="skills.html" class="nav__link nav-link">Browse</a></li>
+                    <li><a href="ai-mentor.html" class="nav__link nav-link nav__link--ai">AI Mentor <em>new</em></a></li>
+                    <li><a href="leaderboard.html" class="nav__link nav-link">Leaderboard</a></li>
+                    <li><a href="#how" class="nav__link nav-link">How it works</a></li>
                 </ul>
-                <div class="nav-actions">
-                    <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-                    <a href="login.html" class="btn btn-ghost" id="navAuthLogin">Login</a>
-                    <a href="register.html" class="btn btn-primary" id="navAuthRegister">Get Started</a>
-                    <a href="dashboard.html" class="btn btn-primary" id="navAuthDashboard" style="display:none;">Dashboard</a>
+                <div class="nav__actions">
+                    <button id="theme-toggle-btn" class="theme-pill" aria-label="Toggle theme">
+                        <span class="theme-pill__dot"></span>
+                        <span class="theme-pill__label">dark</span>
+                    </button>
+                    <a href="login.html" class="nav__auth nav__auth--ghost" id="navAuthLogin">log in</a>
+                    <a href="register.html" class="nav__auth nav__auth--solid" id="navAuthRegister">
+                        join free <span>→</span>
+                    </a>
+                    <a href="dashboard.html" class="nav__auth nav__auth--solid" id="navAuthDashboard" style="display:none;">
+                        dashboard <span>→</span>
+                    </a>
                 </div>
             </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-        </div>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                Campus-Exclusive Platform
-            </div>
-            <h1 class="hero-title">
-                Share Skills.<br>
-                Learn Together.<br>
-                <span class="gradient-text">Grow Faster.</span>
-            </h1>
-            <p class="hero-description">
-                Connect with talented peers on campus. Offer your expertise, discover new skills,
-                and build meaningful learning experiences in a trusted community.
-            </p>
-            <div class="hero-cta" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-                <a href="skills.html" class="btn btn-primary btn-large">
-                    Browse Skills
-                    <span class="btn-arrow">→</span>
-                </a>
-                <a href="ai-mentor.html" class="btn btn-ai-glow btn-large">
-                    ✨ Ask AI Mentor
-                </a>
-                <a href="#"
-                    onclick="if(API && API.auth.isAuthenticated()){ window.location.href='dashboard.html#my-skills'; } else { window.location.href='login.html'; }"
-                    class="btn btn-secondary btn-large">
-                    Share Your Skill
-                    <span class="btn-icon">🚀</span>
-                </a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number" data-count="500">0</div>
-                    <div class="stat-label">Active Students</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="120">0</div>
-                    <div class="stat-label">Skills Shared</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" data-count="1000">0</div>
-                    <div class="stat-label">Sessions Completed</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ═══ HERO — EDITORIAL ASYMMETRIC ═══ -->
+    <header id="home" class="hero">
+        <div class="hero__grain"></div>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Why Choose SkillShare Hub?</h2>
-                <p class="section-subtitle">Everything you need to share and learn skills effectively</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Campus-Verified</h3>
-                    <p class="feature-description">
-                        Connect only with verified students from your college. Safe, trusted, and convenient.
-                    </p>
+        <div class="hero__grid">
+            <!-- Left: massive editorial headline -->
+            <div class="hero__lead">
+                <div class="hero__eyebrow">
+                    <span class="hero__eyebrow-dot"></span>
+                    <span>campus-only · est. 2026 · verified students</span>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3 class="feature-title">Easy Discovery</h3>
-                    <p class="feature-description">
-                        Browse and search skills by category. Find exactly what you want to learn in seconds.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💬</div>
-                    <h3 class="feature-title">Smart Matching</h3>
-                    <p class="feature-description">
-                        Request skills from peers and get matched with the best tutors on campus.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3 class="feature-title">Quality Reviews</h3>
-                    <p class="feature-description">
-                        Rate and review sessions to maintain quality and help others make informed choices.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3 class="feature-title">Session Management</h3>
-                    <p class="feature-description">
-                        Track all your learning sessions in one place. Never miss a skill-sharing opportunity.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3 class="feature-title">Build Your Profile</h3>
-                    <p class="feature-description">
-                        Showcase your expertise and build a reputation as a skilled tutor on campus.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Get started in 4 simple steps</p>
-            </div>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">01</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Create Your Profile</h3>
-                        <p class="step-description">
-                            Sign up with your institutional email and create your student profile.
-                        </p>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">02</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Add Your Skills</h3>
-                        <p class="step-description">
-                            List skills you can teach - from coding to guitar, sports to design.
-                        </p>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">03</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Connect & Learn</h3>
-                        <p class="step-description">
-                            Browse skills, send requests, and get matched with peer tutors.
-                        </p>
-                    </div>
-                </div>
-                <div class="step-card">
-                    <div class="step-number">04</div>
-                    <div class="step-content">
-                        <h3 class="step-title">Share Feedback</h3>
-                        <p class="step-description">
-                            Complete sessions and leave reviews to help the community grow.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <h1 class="hero__title">
+                    Trade what
+                    <span class="hero__title-line">
+                        <em>you know.</em>
+                    </span>
+                    Learn what
+                    <span class="hero__title-line hero__title-line--accent">
+                        you <u>don't.</u>
+                    </span>
+                </h1>
 
-    <!-- Popular Skills Section -->
-    <section id="skills" class="popular-skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Popular Skills</h2>
-                <p class="section-subtitle">Explore trending skills on campus</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-category technical">Technical</div>
-                    <h3 class="skill-name">Web Development</h3>
-                    <p class="skill-tutors">12 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">4.8</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-category arts">Arts</div>
-                    <h3 class="skill-name">Guitar Playing</h3>
-                    <p class="skill-tutors">8 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">4.9</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-category sports">Sports</div>
-                    <h3 class="skill-name">Basketball</h3>
-                    <p class="skill-tutors">15 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">4.7</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-category technical">Technical</div>
-                    <h3 class="skill-name">Python Programming</h3>
-                    <p class="skill-tutors">18 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">4.9</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-category arts">Arts</div>
-                    <h3 class="skill-name">Digital Design</h3>
-                    <p class="skill-tutors">10 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">4.6</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-category other">Fitness</div>
-                    <h3 class="skill-name">Yoga & Meditation</h3>
-                    <p class="skill-tutors">6 tutors available</p>
-                    <div class="skill-rating">
-                        <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">5.0</span>
-                    </div>
-                    <a href="skills.html" class="skill-link">View Details →</a>
-                </div>
-            </div>
-            <div class="section-cta">
-                <a href="skills.html" class="btn btn-primary">Browse All Skills</a>
-            </div>
-        </div>
-    </section>
+                <p class="hero__sub">
+                    A peer-to-peer exchange for the talented people on your campus.
+                    Guitar for Python. Yoga for Figma. Spanish for basketball.
+                    <strong>No money changes hands. Skills do.</strong>
+                </p>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">What Students Say</h2>
-                <p class="section-subtitle">Real stories from our campus community</p>
+                <div class="hero__cta">
+                    <a href="skills.html" class="btn btn--ink">
+                        <span>Browse skills</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="ai-mentor.html" class="btn btn--cream">
+                        <span class="btn__sparkle">✦</span>
+                        <span>Ask the AI mentor</span>
+                    </a>
+                    <a href="#"
+                       onclick="if(API && API.auth.isAuthenticated()){ window.location.href='dashboard.html#my-skills'; } else { window.location.href='login.html'; }"
+                       class="btn btn--ghost">
+                        + teach something
+                    </a>
+                </div>
             </div>
-            <div class="testimonials-carousel" id="testimonialsCarousel">
-                <div class="testimonial-track" id="testimonialTrack">
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-quote">"I learned React in just 3 weeks from a senior. The personalized attention you get here is unmatched — way better than any online course."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #7c3aed, #d946ef);">SP</div>
-                            <div>
-                                <div class="testimonial-name">Sneha Patel</div>
-                                <div class="testimonial-role">CS, 2nd Year · Learned Web Dev</div>
-                            </div>
+
+            <!-- Right: stacked "cards from the field" -->
+            <aside class="hero__stack">
+                <div class="hero__card hero__card--1">
+                    <div class="hero__card-tag">live now</div>
+                    <div class="hero__card-row">
+                        <div class="avatar avatar--rose">SP</div>
+                        <div>
+                            <div class="hero__card-name">Sneha ↔ Aarav</div>
+                            <div class="hero__card-meta">React ↔ Spanish · 3rd week</div>
                         </div>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-quote">"Teaching guitar on SkillShare Hub helped me earn pocket money while doing what I love. Already had 20+ sessions!"</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #8b5cf6);">RK</div>
-                            <div>
-                                <div class="testimonial-name">Rohan Kumar</div>
-                                <div class="testimonial-role">Music, 3rd Year · Teaches Guitar</div>
-                            </div>
-                        </div>
+                    <div class="hero__card-bar">
+                        <div class="hero__card-bar-fill" style="--w: 72%"></div>
                     </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-quote">"Found an amazing basketball coach right on campus. The booking system is super smooth and the tutor was professional."</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d946ef, #f43f5e);">AJ</div>
-                            <div>
-                                <div class="testimonial-name">Ananya Joshi</div>
-                                <div class="testimonial-role">Business, 1st Year · Learned Basketball</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-quote">"The platform connected me with a Figma expert who completely transformed my design workflow. Best campus resource ever!"</p>
-                        <div class="testimonial-author">
-                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">DM</div>
-                            <div>
-                                <div class="testimonial-name">Dev Mehta</div>
-                                <div class="testimonial-role">Design, 2nd Year · Learned UI/UX</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="hero__card-foot">6 of 8 sessions complete</div>
                 </div>
-                <div class="testimonial-dots" id="testimonialDots"></div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Live Skill Exchange Ticker -->
-    <section class="exchange-ticker-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🔄 Live Skill Exchanges</h2>
-                <p class="section-subtitle">See what's happening on campus right now</p>
-            </div>
-        </div>
-        <div class="ticker-wrapper">
-            <div class="ticker-track">
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#7c3aed;">A</span> Alex traded <strong>Python</strong> → <strong>Guitar</strong> with Sam</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#d946ef;">M</span> Maya learned <strong>UI Design</strong> from Priya</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#06b6d4;">R</span> Raj taught <strong>Data Structures</strong> to 3 students</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#f43f5e;">S</span> Sara booked a <strong>Yoga</strong> session with Nisha</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#10b981;">K</span> Karan swapped <strong>Basketball</strong> → <strong>Spanish</strong> with Leo</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#f59e0b;">T</span> Tina completed <strong>Photography</strong> mentorship</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#8b5cf6;">V</span> Vikram started learning <strong>Machine Learning</strong></div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#ec4899;">P</span> Pooja rated her <strong>Dance</strong> session ⭐⭐⭐⭐⭐</div>
-                <!-- Duplicate for seamless loop -->
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#7c3aed;">A</span> Alex traded <strong>Python</strong> → <strong>Guitar</strong> with Sam</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#d946ef;">M</span> Maya learned <strong>UI Design</strong> from Priya</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#06b6d4;">R</span> Raj taught <strong>Data Structures</strong> to 3 students</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#f43f5e;">S</span> Sara booked a <strong>Yoga</strong> session with Nisha</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#10b981;">K</span> Karan swapped <strong>Basketball</strong> → <strong>Spanish</strong> with Leo</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#f59e0b;">T</span> Tina completed <strong>Photography</strong> mentorship</div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#8b5cf6;">V</span> Vikram started learning <strong>Machine Learning</strong></div>
-                <div class="ticker-item"><span class="ticker-avatar" style="background:#ec4899;">P</span> Pooja rated her <strong>Dance</strong> session ⭐⭐⭐⭐⭐</div>
-            </div>
-        </div>
-    </section>
+                <div class="hero__card hero__card--2">
+                    <div class="hero__card-tag hero__card-tag--mint">just matched</div>
+                    <div class="hero__card-big">
+                        <span class="hero__card-arrow">→</span>
+                        <span class="hero__card-swap">
+                            <strong>Guitar</strong>
+                            <small>for</small>
+                            <strong>Python</strong>
+                        </span>
+                    </div>
+                    <div class="hero__card-foot">Rohan &amp; Maya · starting Mon</div>
+                </div>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="faq-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Everything you need to know about SkillShare Hub</p>
+                <div class="hero__card hero__card--3">
+                    <div class="hero__card-row hero__card-row--center">
+                        <div class="hero__card-rating">★★★★★</div>
+                        <span class="hero__card-mini">4.9 avg · 1,247 sessions</span>
+                    </div>
+                </div>
+
+                <!-- floating sticker -->
+                <div class="hero__sticker">
+                    <svg viewBox="0 0 200 200" class="hero__sticker-svg">
+                        <defs>
+                            <path id="circle" d="M 100, 100 m -65, 0 a 65,65 0 1,1 130,0 a 65,65 0 1,1 -130,0"/>
+                        </defs>
+                        <text font-family="Fraunces" font-weight="900" font-size="20">
+                            <textPath href="#circle">
+                                · teach · learn · repeat · teach · learn · repeat ·
+                            </textPath>
+                        </text>
+                    </svg>
+                    <div class="hero__sticker-center">
+                        <span>free</span>
+                        <strong>always</strong>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- STATS BAR — full bleed editorial counter -->
+        <div class="hero__stats hero-stats">
+            <div class="hero__stat">
+                <div class="hero__stat-label">[01] students</div>
+                <div class="hero__stat-value"><span data-count="500">0</span></div>
+                <div class="hero__stat-sub">active on campus</div>
             </div>
-            <div class="faq-list" id="faqList">
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>Is SkillShare Hub free to use?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Yes! Creating an account, browsing skills, and messaging tutors is completely free. Individual tutors may choose to set a price for their sessions, but many offer free peer-to-peer learning.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>Who can join the platform?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Any verified student from our campus community can sign up. We use institutional email verification to ensure a safe, trusted learning environment.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>How do I book a skill session?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Browse the skills page, find a tutor you like, and click "Request Session." Pick your preferred date & time, add a message, and submit. The tutor will confirm or suggest an alternative time.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>Can I both teach and learn on the platform?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Absolutely! Every user can list skills they want to teach and also request sessions from other tutors. It's a two-way learning community.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>How are tutors rated and reviewed?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>After each completed session, students can leave a star rating and written review. These ratings are displayed on the tutor's skill cards to help others make informed choices.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <span>What happens if I need to cancel a session?</span>
-                        <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                    <div class="faq-answer">
-                        <p>You can cancel a pending or confirmed session from your dashboard at any time. We encourage giving at least 24 hours notice out of courtesy to the tutor.</p>
-                    </div>
-                </div>
+            <div class="hero__stat">
+                <div class="hero__stat-label">[02] skills listed</div>
+                <div class="hero__stat-value"><span data-count="124">0</span></div>
+                <div class="hero__stat-sub">across 14 categories</div>
+            </div>
+            <div class="hero__stat">
+                <div class="hero__stat-label">[03] sessions done</div>
+                <div class="hero__stat-value"><span data-count="1247">0</span></div>
+                <div class="hero__stat-sub">since spring '26</div>
+            </div>
+            <div class="hero__stat">
+                <div class="hero__stat-label">[04] avg. rating</div>
+                <div class="hero__stat-value">4.9<span class="hero__stat-unit">/5</span></div>
+                <div class="hero__stat-sub">★★★★★ from peers</div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="ctaSection">
-        <div class="cta-content">
-            <h2 class="cta-title" id="ctaTitle">Ready to Start Your Learning Journey?</h2>
-            <p class="cta-description" id="ctaDesc">Join hundreds of students already sharing and learning skills on campus</p>
-            <a href="register.html" class="btn btn-primary btn-large" id="ctaBtn">
-                Create Free Account
-                <span class="btn-arrow">→</span>
+    <!-- ═══ SKILL BENTO — POPULAR SKILLS ═══ -->
+    <section class="skills" id="skills">
+        <div class="section-head">
+            <span class="section-head__index">§ 02</span>
+            <h2 class="section-head__title">
+                What's being <em>traded</em> this week
+            </h2>
+            <p class="section-head__sub">A live look at the skills moving across campus right now.</p>
+        </div>
+
+        <div class="bento">
+            <article class="bento__cell bento__cell--big bento__cell--ink">
+                <div class="bento__cat">★ featured</div>
+                <h3 class="bento__title">Web Development</h3>
+                <p class="bento__copy">12 tutors · React, Next.js, TypeScript, the whole stack.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>4.8</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+                <div class="bento__visual bento__visual--code">
+                    <span>{ html }</span>
+                    <span>{ css }</span>
+                    <span>{ js }</span>
+                </div>
+            </article>
+
+            <article class="bento__cell bento__cell--rose">
+                <div class="bento__cat">arts</div>
+                <h3 class="bento__title">Guitar</h3>
+                <p class="bento__copy">8 tutors · acoustic &amp; electric, beginner to fingerstyle.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>4.9</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+                <div class="bento__visual bento__visual--guitar">
+                    <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
+                        <ellipse cx="40" cy="55" rx="18" ry="22"/>
+                        <rect x="36" y="10" width="4" height="35"/>
+                        <circle cx="38" cy="12" r="6"/>
+                    </svg>
+                </div>
+            </article>
+
+            <article class="bento__cell bento__cell--mint">
+                <div class="bento__cat">sports</div>
+                <h3 class="bento__title">Basketball</h3>
+                <p class="bento__copy">15 tutors · shooting, defense, pickup-game strategy.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>4.7</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+                <div class="bento__visual bento__visual--ball">🏀</div>
+            </article>
+
+            <article class="bento__cell bento__cell--cream">
+                <div class="bento__cat">technical</div>
+                <h3 class="bento__title">Python</h3>
+                <p class="bento__copy">18 tutors · ML, scripting, data, interview prep.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>4.9</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+                <div class="bento__visual bento__visual--py">
+                    <code>def trade():</code>
+                    <code>&nbsp;&nbsp;return "skills"</code>
+                </div>
+            </article>
+
+            <article class="bento__cell bento__cell--sky">
+                <div class="bento__cat">design</div>
+                <h3 class="bento__title">Digital Design</h3>
+                <p class="bento__copy">10 tutors · Figma, illustration, brand systems.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>4.6</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+                <div class="bento__visual bento__visual--design">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </article>
+
+            <article class="bento__cell bento__cell--long bento__cell--peach">
+                <div class="bento__cat">wellness</div>
+                <h3 class="bento__title">Yoga &amp; Meditation</h3>
+                <p class="bento__copy">6 tutors · slow flow, breathwork, focus sessions before exams.</p>
+                <div class="bento__meta">
+                    <span class="bento__rating">★★★★★ <b>5.0</b></span>
+                    <a href="skills.html" class="bento__arrow">view →</a>
+                </div>
+            </article>
+        </div>
+
+        <div class="section-foot">
+            <a href="skills.html" class="btn btn--ink">
+                <span>Browse all 124 skills</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
+            <span class="section-foot__hint">updated 2 min ago</span>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ═══ FEATURE MARQUEE — peeking strip ═══ -->
+    <section class="features-strip">
+        <div class="features-strip__track">
+            <span class="features-strip__item">campus-verified</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">book in 30 seconds</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">no money, just skills</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">AI-matched tutors</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">real reviews from real students</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">build your campus rep</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">campus-verified</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">book in 30 seconds</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">no money, just skills</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">AI-matched tutors</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">real reviews from real students</span>
+            <span class="features-strip__dot">✦</span>
+            <span class="features-strip__item">build your campus rep</span>
+            <span class="features-strip__dot">✦</span>
+        </div>
+    </section>
+
+    <!-- ═══ HOW IT WORKS — numbered steps with rotated numbers ═══ -->
+    <section id="how" class="how">
+        <div class="section-head section-head--left">
+            <span class="section-head__index">§ 03</span>
+            <h2 class="section-head__title">
+                From <em>“hi”</em> to <em>“got it”</em><br>
+                in four moves.
+            </h2>
+        </div>
+
+        <div class="how__list">
+            <article class="how__step">
+                <div class="how__num">01</div>
+                <div class="how__body">
+                    <h3>Make your card.</h3>
+                    <p>Sign up with your campus email. Pick a username, drop a photo, you're in.</p>
+                </div>
+                <div class="how__illu how__illu--1">
+                    <div class="how__illu-card">
+                        <div class="avatar avatar--rose">YO</div>
+                        <strong>your name</strong>
+                        <small>verified · 2nd yr</small>
+                    </div>
+                </div>
+            </article>
+
+            <article class="how__step how__step--alt">
+                <div class="how__num">02</div>
+                <div class="how__body">
+                    <h3>List what you can teach.</h3>
+                    <p>Anything. Cooking, calculus, calligraphy, kickflips. Add a price (or zero).</p>
+                </div>
+                <div class="how__illu how__illu--2">
+                    <div class="how__pill">+ calculus</div>
+                    <div class="how__pill how__pill--alt">+ kickflips</div>
+                    <div class="how__pill">+ cooking</div>
+                </div>
+            </article>
+
+            <article class="how__step">
+                <div class="how__num">03</div>
+                <div class="how__body">
+                    <h3>Match &amp; book.</h3>
+                    <p>Browse, request, or let our AI mentor pick the perfect tutor for what you need.</p>
+                </div>
+                <div class="how__illu how__illu--3">
+                    <div class="how__bubble how__bubble--l">hey! wanna trade?</div>
+                    <div class="how__bubble how__bubble--r">yes. mon 6pm?</div>
+                </div>
+            </article>
+
+            <article class="how__step how__step--alt">
+                <div class="how__num">04</div>
+                <div class="how__body">
+                    <h3>Show up. Learn. Review.</h3>
+                    <p>Meet on campus (café, lab, lounge). Rate the session. Earn campus cred.</p>
+                </div>
+                <div class="how__illu how__illu--4">
+                    <div class="how__stars">★★★★★</div>
+                    <div class="how__stars-sub">+12 rep</div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ═══ LIVE TICKER ═══ -->
+    <section class="ticker-section">
+        <div class="ticker-section__head">
+            <span class="section-head__index">§ 04</span>
+            <h2 class="section-head__title">Live on campus <em>right now</em></h2>
+        </div>
+        <div class="ticker">
+            <div class="ticker__track">
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#e8586b">A</span>Alex traded <b>Python</b> → <b>Guitar</b> with Sam</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#7c5cff">M</span>Maya learned <b>UI Design</b> from Priya</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#3aa39a">R</span>Raj taught <b>Data Structures</b> to 3 students</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#e89a3c">S</span>Sara booked a <b>Yoga</b> session with Nisha</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#5c7cff">K</span>Karan swapped <b>Basketball</b> → <b>Spanish</b> with Leo</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#c45cff">T</span>Tina completed <b>Photography</b> mentorship</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#ff5c8a">V</span>Vikram started learning <b>Machine Learning</b></div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#3ac4a8">P</span>Pooja rated her <b>Dance</b> session ★★★★★</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#e8586b">A</span>Alex traded <b>Python</b> → <b>Guitar</b> with Sam</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#7c5cff">M</span>Maya learned <b>UI Design</b> from Priya</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#3aa39a">R</span>Raj taught <b>Data Structures</b> to 3 students</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#e89a3c">S</span>Sara booked a <b>Yoga</b> session with Nisha</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#5c7cff">K</span>Karan swapped <b>Basketball</b> → <b>Spanish</b> with Leo</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#c45cff">T</span>Tina completed <b>Photography</b> mentorship</div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#ff5c8a">V</span>Vikram started learning <b>Machine Learning</b></div>
+                <div class="ticker__item"><span class="ticker__avatar" style="background:#3ac4a8">P</span>Pooja rated her <b>Dance</b> session ★★★★★</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TESTIMONIALS — editorial pull quotes ═══ -->
+    <section class="quotes">
+        <div class="section-head section-head--center">
+            <span class="section-head__index">§ 05</span>
+            <h2 class="section-head__title">From the <em>people</em>.</h2>
+            <p class="section-head__sub">Real students. Real sessions. Real reviews.</p>
+        </div>
+
+        <div class="quotes__rail" id="testimonialsCarousel">
+            <div class="quotes__track" id="testimonialTrack">
+                <figure class="quote testimonial-card">
+                    <div class="quote__stars">★★★★★</div>
+                    <blockquote>
+                        “I learned React in three weeks from a senior. The one-on-one
+                        attention you get here beats every online course I've tried —
+                        and it costs me a few guitar lessons.”
+                    </blockquote>
+                    <figcaption>
+                        <div class="avatar avatar--rose">SP</div>
+                        <div>
+                            <strong>Sneha Patel</strong>
+                            <small>CS, 2nd year · learned Web Dev</small>
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="quote">
+                    <div class="quote__stars">★★★★★</div>
+                    <blockquote>
+                        “Teaching guitar on SkillShare Hub paid for my coffee habit
+                        and then some. Twenty sessions in, I've got regulars — and
+                        a reputation.”
+                    </blockquote>
+                    <figcaption>
+                        <div class="avatar avatar--sky">RK</div>
+                        <div>
+                            <strong>Rohan Kumar</strong>
+                            <small>Music, 3rd year · teaches Guitar</small>
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="quote">
+                    <div class="quote__stars">★★★★★</div>
+                    <blockquote>
+                        “Found an amazing basketball coach literally across the quad.
+                        The booking flow is stupidly smooth — five stars for UX alone.”
+                    </blockquote>
+                    <figcaption>
+                        <div class="avatar avatar--peach">AJ</div>
+                        <div>
+                            <strong>Ananya Joshi</strong>
+                            <small>Business, 1st year · learned Basketball</small>
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="quote">
+                    <div class="quote__stars">★★★★★</div>
+                    <blockquote>
+                        “A Figma mentor transformed my whole design workflow in a
+                        month. Best resource on campus, no contest.”
+                    </blockquote>
+                    <figcaption>
+                        <div class="avatar avatar--mint">DM</div>
+                        <div>
+                            <strong>Dev Mehta</strong>
+                            <small>Design, 2nd year · learned UI/UX</small>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="quotes__dots" id="testimonialDots"></div>
+        </div>
+    </section>
+
+    <!-- ═══ FAQ — accordion in two columns ═══ -->
+    <section id="faq" class="faq">
+        <div class="section-head section-head--left">
+            <span class="section-head__index">§ 06</span>
+            <h2 class="section-head__title">
+                You asked.<br><em>We answered.</em>
+            </h2>
+            <p class="section-head__sub">The questions that come up most in our DMs.</p>
+        </div>
+
+        <div class="faq__list" id="faqList">
+            <details class="faq__item faq-item">
+                <summary>
+                    <span>Is SkillShare Hub actually free?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>Yes — sign-up, browsing, and messaging are all free. Tutors may set a price for sessions, but many trade freely. You can also barter skill-for-skill.</p>
+                </div>
+            </details>
+            <details class="faq__item">
+                <summary>
+                    <span>Who can join?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>Any student with a verified campus email. We check institutional domains to keep the community trusted.</p>
+                </div>
+            </details>
+            <details class="faq__item">
+                <summary>
+                    <span>How do I book a session?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>Find a tutor, hit “Request,” pick a time, send a message. They'll confirm or suggest an alternative. Done.</p>
+                </div>
+            </details>
+            <details class="faq__item">
+                <summary>
+                    <span>Can I teach AND learn?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>Absolutely. Most users do both. It's the whole point — a two-way street of campus talent.</p>
+                </div>
+            </details>
+            <details class="faq__item">
+                <summary>
+                    <span>How do ratings work?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>After every session, students leave a star rating + written note. Tutors' averages surface on every listing.</p>
+                </div>
+            </details>
+            <details class="faq__item">
+                <summary>
+                    <span>What if I need to cancel?</span>
+                    <span class="faq__icon">+</span>
+                </summary>
+                <div class="faq__body">
+                    <p>Cancel any session from your dashboard. We ask for 24h notice as a courtesy to your tutor.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- ═══ BIG CTA — typographic poster ═══ -->
+    <section class="cta" id="ctaSection">
+        <div class="cta__inner">
+            <div class="cta__top">
+                <span class="cta__num">↳ ready?</span>
+                <span class="cta__rule"></span>
+                <span class="cta__date">est. 2026 · campus-only</span>
+            </div>
+            <h2 class="cta__title" id="ctaTitle">
+                Bring what<br>
+                <em>you know.</em><br>
+                <span class="cta__title-accent">Leave with<br>what you don't.</span>
+            </h2>
+            <p class="cta__desc" id="ctaDesc">Free forever for verified students. No catch.</p>
+            <a href="register.html" class="btn btn--ink btn--xl" id="ctaBtn">
+                <span>Create your account</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <div class="cta__by">— the SkillShare Hub team</div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER — newsletter colophon ═══ -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <span class="logo-icon">🎓</span>
-                        <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
-                    </div>
-                    <p class="footer-tagline">Empowering campus learning, one skill at a time.</p>
+        <div class="footer__inner">
+            <div class="footer__brand">
+                <div class="footer__mark">SH</div>
+                <p class="footer__tag">A campus-exclusive skill exchange. Built by students, for students.</p>
+            </div>
+            <div class="footer__cols">
+                <div class="footer__col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="skills.html">Browse</a></li>
+                        <li><a href="ai-mentor.html">AI Mentor</a></li>
+                        <li><a href="leaderboard.html">Leaderboard</a></li>
+                    </ul>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Platform</h4>
-                        <ul>
-                            <li><a href="#features">Features</a></li>
-                            <li><a href="#how-it-works">How It Works</a></li>
-                            <li><a href="skills.html">Browse Skills</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Account</h4>
-                        <ul>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="register.html">Sign Up</a></li>
-                            <li><a href="dashboard.html">Dashboard</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                        </ul>
-                    </div>
+                <div class="footer__col">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">Log in</a></li>
+                        <li><a href="register.html">Sign up</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Made on campus</h4>
+                    <ul>
+                        <li><a href="#">Help center</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 SkillShare Hub. Built for campus communities.</p>
-            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 SkillShare Hub</span>
+            <span class="footer__bottom-mid">— made with care, traded with skill —</span>
+            <span>v1.0</span>
         </div>
     </footer>
 

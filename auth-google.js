@@ -2,9 +2,30 @@
 
 (function () {
     const DEFAULT_GOOGLE_CLIENT_ID = "430047701131-jkgfdh2hlshv21v222kkunjtu9hmjdok.apps.googleusercontent.com";
+    let isInitialized = false;
+
+    // Check if running directly via file://
+    function checkEnvironment() {
+        if (window.location.protocol === 'file:') {
+            console.warn("Google Sign-In does not work from file:// protocol. Please open via http://localhost:3001");
+            const btnContainer = document.getElementById("google-btn-container");
+            if (btnContainer) {
+                btnContainer.innerHTML = `
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.75rem; border-radius: 0.5rem; text-align: center; font-size: 0.85rem; color: #ef4444;">
+                        ⚠️ Google Sign-In requires a web server.<br>
+                        Please access via <a href="http://localhost:3001/login.html" style="color: inherit; text-decoration: underline; font-weight: 600;">http://localhost:3001</a>
+                    </div>
+                `;
+            }
+            return false;
+        }
+        return true;
+    }
 
     // Function to load Google Identity Services script
     function loadGoogleScript(clientId) {
+        if (!checkEnvironment()) return;
+
         const idToUse = clientId || DEFAULT_GOOGLE_CLIENT_ID;
 
         // If script is already present
@@ -46,7 +67,9 @@
                 client_id: clientId,
                 callback: handleCredentialResponse,
                 auto_select: false,
-                cancel_on_tap_outside: false
+                cancel_on_tap_outside: true,
+                ux_mode: "popup",
+                context: "signin"
             });
 
             const btnContainer = document.getElementById("google-btn-container");
@@ -54,9 +77,16 @@
                 btnContainer.innerHTML = '';
                 google.accounts.id.renderButton(
                     btnContainer,
-                    { theme: "outline", size: "large", width: 350, text: "continue_with", shape: "rectangular" }
+                    {
+                        theme: "outline",
+                        size: "large",
+                        width: 350,
+                        text: "continue_with",
+                        shape: "rectangular"
+                    }
                 );
             }
+            isInitialized = true;
         } catch (err) {
             console.error("Failed to initialize Google button:", err);
         }
@@ -65,10 +95,14 @@
     // Handle the JWT response from Google
     async function handleCredentialResponse(response) {
         try {
-            console.log("Google JWT received");
+            console.log("Google JWT received, sending to backend...");
 
             if (!response.credential) {
-                throw new Error("No credential received from Google");
+                throw new Error("No credential token received from Google");
+            }
+
+            if (typeof showToast === 'function') {
+                showToast('Verifying Google account...', 'info');
             }
 
             const baseUrl = (typeof API_BASE_URL !== 'undefined') ? API_BASE_URL : '/api';
@@ -82,9 +116,14 @@
                 body: JSON.stringify({ token: response.credential })
             });
 
-            const data = await res.json();
+            let data;
+            try {
+                data = await res.json();
+            } catch (jsonErr) {
+                throw new Error(`Server returned invalid response (Status ${res.status}). Make sure the backend server is running.`);
+            }
 
-            if (res.ok) {
+            if (res.ok && data.token) {
                 // Store token
                 localStorage.setItem('token', data.token);
                 if (data.user) {
@@ -110,6 +149,8 @@
 
     // Initializer
     async function init() {
+        if (!checkEnvironment()) return;
+
         // 1. Immediately load Google Script with default client ID to ensure button renders with 0 delay
         loadGoogleScript(DEFAULT_GOOGLE_CLIENT_ID);
 

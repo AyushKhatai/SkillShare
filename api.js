@@ -1,10 +1,22 @@
 // API Configuration and Service - Dynamic host detection
 const API_BASE_URL = (function() {
     if (typeof window !== 'undefined') {
+        const protocol = window.location.protocol;
         const host = window.location.hostname;
+        const port = window.location.port;
+
+        // If loaded via file:// protocol
+        if (protocol === 'file:') {
+            return 'http://localhost:3001/api';
+        }
+
         // Localhost development
         if (host === 'localhost' || host === '127.0.0.1' || host === '') {
-            return '/api';
+            if (port === '3001') {
+                return '/api';
+            }
+            // If served via Apache (80), Live Server (5500), etc.
+            return 'http://localhost:3001/api';
         }
         if (window.SKILLSHARE_API_URL) return window.SKILLSHARE_API_URL;
         // Production backend on Render

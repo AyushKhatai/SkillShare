@@ -14,7 +14,7 @@
 const themeToggle = {
     init: () => {
         const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
-        themeToggle.updateIcon(currentTheme === 'dark');
+        themeToggle.updatePill(currentTheme === 'dark');
 
         const toggleBtn = document.getElementById('theme-toggle-btn');
         if (toggleBtn) {
@@ -29,15 +29,15 @@ const themeToggle = {
 
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
-        themeToggle.updateIcon(newTheme === 'dark');
+        themeToggle.updatePill(newTheme === 'dark');
     },
 
-    updateIcon: (isDark) => {
+    updatePill: (isDark) => {
         const toggleBtn = document.getElementById('theme-toggle-btn');
-        if (toggleBtn) {
-            toggleBtn.innerHTML = isDark ? '☀️' : '🌙';
-            toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-        }
+        if (!toggleBtn) return;
+        const label = toggleBtn.querySelector('.theme-pill__label');
+        if (label) label.textContent = isDark ? 'light' : 'dark';
+        toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
     }
 };
 
