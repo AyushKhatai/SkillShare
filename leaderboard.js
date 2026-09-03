@@ -13,14 +13,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadLeaderboard() {
     try {
-        const res = await API.skills.getAllSkills();
+        // 12s timeout — avoids infinite spinner if backend is down
+        const apiPromise = API.skills.getAllSkills();
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Backend timeout')), 12000)
+        );
+        const res = await Promise.race([apiPromise, timeoutPromise]);
         allSkillsData = Array.isArray(res) ? res : (res.skills || []);
+
+        if (!allSkillsData.length) {
+            allSkillsData = getDemoLeaderboardSkills();
+        }
         processLeaderboard();
     } catch (error) {
         console.error('Error loading leaderboard:', error);
-        document.getElementById('lbPodium').innerHTML = '<div class="lb-empty"><div class="lb-empty-icon">😕</div><p>Could not load leaderboard data</p></div>';
-        document.getElementById('lbRankings').innerHTML = '';
+        allSkillsData = getDemoLeaderboardSkills();
+        processLeaderboard();
+        if (typeof showToast === 'function') {
+            showToast('Could not reach the backend. Showing sample data.', 'warning');
+        }
     }
+}
+
+function getDemoLeaderboardSkills() {
+    // Sample data shaped like real skills so the leaderboard renders
+    return [
+        { skill_id: 'd1', id: 'd1', user_id: 'u1', user_name: 'Sneha Patel', teacher_name: 'Sneha Patel', title: 'Web Development', category: 'Programming', total_bookings: 12, average_rating: 4.8 },
+        { skill_id: 'd2', id: 'd2', user_id: 'u1', user_name: 'Sneha Patel', teacher_name: 'Sneha Patel', title: 'React Patterns', category: 'Programming', total_bookings: 5, average_rating: 4.9 },
+        { skill_id: 'd3', id: 'd3', user_id: 'u2', user_name: 'Rohan Kumar', teacher_name: 'Rohan Kumar', title: 'Guitar Playing', category: 'Music', total_bookings: 8, average_rating: 4.9 },
+        { skill_id: 'd4', id: 'd4', user_id: 'u3', user_name: 'Raj Sharma', teacher_name: 'Raj Sharma', title: 'Python Programming', category: 'Programming', total_bookings: 18, average_rating: 4.9 },
+        { skill_id: 'd5', id: 'd5', user_id: 'u3', user_name: 'Raj Sharma', teacher_name: 'Raj Sharma', title: 'Data Structures', category: 'Programming', total_bookings: 10, average_rating: 4.7 },
+        { skill_id: 'd6', id: 'd6', user_id: 'u4', user_name: 'Ananya Joshi', teacher_name: 'Ananya Joshi', title: 'Basketball', category: 'Sports', total_bookings: 15, average_rating: 4.7 },
+        { skill_id: 'd7', id: 'd7', user_id: 'u5', user_name: 'Dev Mehta', teacher_name: 'Dev Mehta', title: 'UI/UX Design', category: 'Arts & Design', total_bookings: 10, average_rating: 4.6 },
+        { skill_id: 'd8', id: 'd8', user_id: 'u6', user_name: 'Nisha Rao', teacher_name: 'Nisha Rao', title: 'Yoga & Meditation', category: 'Fitness', total_bookings: 6, average_rating: 5.0 }
+    ];
 }
 
 function processLeaderboard() {

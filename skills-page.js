@@ -65,15 +65,49 @@ async function fetchSkills() {
     try {
         grid.innerHTML = '<div class="browse-loading"><div class="browse-loading-spinner"></div><p>Loading skills...</p></div>';
 
-        const response = await API.skills.getAllSkills();
+        // Race API against a 12s timeout — prevents infinite spinner if backend is down
+        const apiPromise = API.skills.getAllSkills();
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Backend timeout — server may be offline')), 12000)
+        );
+
+        const response = await Promise.race([apiPromise, timeoutPromise]);
         filteredSkills = Array.isArray(response) ? response : (response.skills || response.data || []);
+
+        if (!filteredSkills.length) {
+            // Empty DB or first load — show demo data so the page isn't a dead end
+            filteredSkills = getDemoSkills();
+            if (resultsCount) resultsCount.textContent = 'Showing demo skills — backend returned 0 skills';
+        }
 
         renderSkills();
     } catch (error) {
         console.error('Error fetching skills:', error);
-        grid.innerHTML = `<div class="error-state" style="grid-column: 1/-1; text-align: center; padding: 2rem;">Failed to load skills. Please check your connection.</div>`;
-        resultsCount.textContent = 'Error loading skills';
+        // Render demo data so the page is never blank
+        filteredSkills = getDemoSkills();
+        renderSkills();
+        if (resultsCount) {
+            resultsCount.textContent = 'Showing demo skills — backend unreachable';
+        }
+        if (typeof showToast === 'function') {
+            showToast('Could not reach the backend. Showing sample skills.', 'warning');
+        }
     }
+}
+
+// Demo data fallback — used when backend is unreachable or returns 0 results
+function getDemoSkills() {
+    return [
+        { skill_id: 'demo-1', id: 'demo-1', title: 'Web Development', category: 'Programming', skill_level: 'Intermediate', description: 'React, Next.js, TypeScript, Tailwind — full-stack mentorship.', teacher_name: 'Sneha Patel', average_rating: 4.8, total_bookings: 12, resume_link: '' },
+        { skill_id: 'demo-2', id: 'demo-2', title: 'Guitar Playing', category: 'Music', skill_level: 'Beginner', description: 'Acoustic & electric guitar, fingerstyle basics, your first song in 4 weeks.', teacher_name: 'Rohan Kumar', average_rating: 4.9, total_bookings: 8, resume_link: '' },
+        { skill_id: 'demo-3', id: 'demo-3', title: 'Basketball Coaching', category: 'Sports', skill_level: 'All Levels', description: 'Shooting form, defense, pick-up game strategy.', teacher_name: 'Ananya Joshi', average_rating: 4.7, total_bookings: 15, resume_link: '' },
+        { skill_id: 'demo-4', id: 'demo-4', title: 'Python Programming', category: 'Programming', skill_level: 'Beginner', description: 'From syntax to ML basics — interview prep and project help.', teacher_name: 'Raj Sharma', average_rating: 4.9, total_bookings: 18, resume_link: '' },
+        { skill_id: 'demo-5', id: 'demo-5', title: 'UI/UX Design with Figma', category: 'Arts & Design', skill_level: 'Intermediate', description: 'Auto-layout, components, design systems, portfolio reviews.', teacher_name: 'Dev Mehta', average_rating: 4.6, total_bookings: 10, resume_link: '' },
+        { skill_id: 'demo-6', id: 'demo-6', title: 'Yoga & Meditation', category: 'Fitness', skill_level: 'All Levels', description: 'Slow flow, breathwork, exam-week focus sessions.', teacher_name: 'Nisha Rao', average_rating: 5.0, total_bookings: 6, resume_link: '' },
+        { skill_id: 'demo-7', id: 'demo-7', title: 'Conversational Spanish', category: 'Language', skill_level: 'Beginner', description: 'Practical Spanish for travel, friends, and vivas.', teacher_name: 'Leo Fernandes', average_rating: 4.8, total_bookings: 9, resume_link: '' },
+        { skill_id: 'demo-8', id: 'demo-8', title: 'Machine Learning Foundations', category: 'Programming', skill_level: 'Advanced', description: 'Linear models, neural nets, hands-on PyTorch projects.', teacher_name: 'Vikram Iyer', average_rating: 4.7, total_bookings: 7, resume_link: '' },
+        { skill_id: 'demo-9', id: 'demo-9', title: 'Photography Basics', category: 'Arts & Design', skill_level: 'Beginner', description: 'Composition, lighting, phone-camera mastery.', teacher_name: 'Tina D\'Souza', average_rating: 4.5, total_bookings: 5, resume_link: '' }
+    ];
 }
 
 // Render skills grid
@@ -270,6 +304,13 @@ function setupBookingModal() {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const skillId = document.getElementById('bookingSkillId').value;
+
+            // Guard against demo data
+            if (typeof skillId === 'string' && skillId.startsWith('demo-')) {
+                showToast('This is a sample skill — sign in and try a real listing to book.', 'info');
+                return;
+            }
+
             const date = document.getElementById('bookingDate').value;
             const hour = parseInt(document.getElementById('bookingHour').value);
             const minute = document.getElementById('bookingMinute').value;

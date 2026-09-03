@@ -19,8 +19,10 @@ const API_BASE_URL = (function() {
             return 'http://localhost:3001/api';
         }
         if (window.SKILLSHARE_API_URL) return window.SKILLSHARE_API_URL;
-        // Production backend on Render
-        return 'https://skillshare-o7i1.onrender.com/api';
+        // Production / Vercel deployment:
+        // Use a relative URL so all /api/* calls go through Vercel's
+        // vercel.json rewrite rule and hit whatever backend is configured.
+        return '/api';
     }
     return '/api';
 })();

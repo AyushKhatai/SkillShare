@@ -10,6 +10,7 @@
     <script>
         (function(){const t=localStorage.getItem('theme'),d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&d)){document.documentElement.setAttribute('data-theme','dark')}else{document.documentElement.setAttribute('data-theme','light')}})();
     </script>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +47,13 @@
     <nav class="nav">
         <div class="nav__inner">
             <a class="nav__brand" href="#home">
-                <span class="nav__brand-mark">SH</span>
+                <span class="nav__brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                        <rect class="logo-frame" x="4" y="4" width="40" height="40" rx="9" transform="rotate(-4 24 24)"/>
+                        <g class="logo-arrow-paper"><path d="M14 19 H31"/><path d="M27.5 15 L31.5 19 L27.5 23"/></g>
+                        <g class="logo-arrow-lemon"><path d="M34 29 H17"/><path d="M20.5 25 L16.5 29 L20.5 33"/></g>
+                    </svg>
+                </span>
                 <span class="nav__brand-name">skillshare<i>/</i>hub</span>
             </a>
             <div class="nav__drawer" id="navDrawer">
