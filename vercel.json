@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://skillshare-o7i1.onrender.com/api/:path*"
+      "destination": "https://skillshare-07i1.onrender.com/api/:path*"
     }
   ]
 }
