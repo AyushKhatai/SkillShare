@@ -226,27 +226,50 @@ button { font: inherit; cursor: pointer; }
 .nav__link.is-active::before { transform: scaleX(1); transform-origin: left; }
 .nav__link.is-active { color: var(--ink); }
 
+.nav__link.nav__link--ai,
+.nav-link.nav__link--ai,
 .nav__link--ai {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    -webkit-text-fill-color: var(--paper) !important;
     padding: 0.35rem 0.75rem;
     border-radius: var(--r-sm);
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
 }
-.nav__link--ai::before { display: none; }
+.nav__link--ai::before,
+.nav__link--ai:hover::before,
+.nav-link.nav__link--ai::before,
+.nav-link.nav__link--ai:hover::before {
+    display: none !important;
+}
+.nav__link.nav__link--ai:hover,
+.nav-link.nav__link--ai:hover,
+.nav__link--ai:hover,
+.nav__link.nav__link--ai.is-active,
+.nav-link.nav__link--ai.active,
+.nav__link--ai.active {
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    -webkit-text-fill-color: var(--paper) !important;
+    opacity: 0.88;
+}
 .nav__link--ai em {
     font-style: normal;
     font-family: var(--font-mono);
     font-size: 9px;
     background: var(--lemon);
-    color: var(--ink);
+    color: #1a1410 !important;
+    -webkit-text-fill-color: #1a1410 !important;
     padding: 1px 5px;
     border-radius: 3px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    font-weight: 700;
 }
 
 .nav__actions { display: flex; align-items: center; gap: 0.6rem; }
@@ -290,6 +313,58 @@ button { font: inherit; cursor: pointer; }
 }
 .nav__auth--solid span { transition: transform 0.2s; }
 .nav__auth--solid:hover span { transform: translateX(3px); }
+
+/* ── Ripple Button (Framer Motion style) ── */
+.ripple-button {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate;
+    border: 1.5px solid var(--ink) !important;
+    cursor: pointer;
+}
+
+.ripple-button__content {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: inherit;
+    pointer-events: none;
+    color: var(--paper) !important;
+    -webkit-text-fill-color: var(--paper) !important;
+    transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                -webkit-text-fill-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ripple-button__span {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    background: var(--paper);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.ripple-button__span.is-expanding {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.ripple-button__span.is-leaving {
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.ripple-button.is-hovered .ripple-button__content {
+    color: var(--ink) !important;
+    -webkit-text-fill-color: var(--ink) !important;
+}
+
+.ripple-button__content em {
+    color: #1a1410 !important;
+    -webkit-text-fill-color: #1a1410 !important;
+}
 
 /* ── hamburger ── */
 .hamburger {
@@ -2314,15 +2389,28 @@ button { font: inherit; cursor: pointer; }
 .nav-link.active { color: var(--ink); }
 .nav-link:hover::before,
 .nav-link.active::before { transform: scaleX(1); transform-origin: left; }
-.nav-link.nav-ai-highlight {
-    background: var(--ink);
-    color: var(--paper);
+.nav-link.nav-ai-highlight,
+.nav__link.nav-ai-highlight {
+    background: var(--ink) !important;
+    color: var(--paper) !important;
+    -webkit-text-fill-color: var(--paper) !important;
     padding: 0.35rem 0.75rem;
     border-radius: var(--r-sm);
     font-weight: 700;
-    -webkit-text-fill-color: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
 }
-.nav-link.nav-ai-highlight::before { display: none; }
+.nav-link.nav-ai-highlight:hover,
+.nav-link.nav-ai-highlight.active,
+.nav__link.nav-ai-highlight:hover,
+.nav__link.nav-ai-highlight.active {
+    color: var(--paper) !important;
+    -webkit-text-fill-color: var(--paper) !important;
+    opacity: 0.88;
+}
+.nav-link.nav-ai-highlight::before,
+.nav__link.nav-ai-highlight::before { display: none !important; }
 
 .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
 
@@ -2435,4 +2523,100 @@ button { font: inherit; cursor: pointer; }
     .nav-actions { flex-direction: column; width: 100%; align-items: stretch; gap: 0.75rem; margin-top: 0.5rem; }
     .nav-actions .btn { width: 100%; justify-content: center; }
     .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CUSTOM CURSOR
+   Attached by cursor.js. Honors (pointer: coarse) and
+   (prefers-reduced-motion: reduce) — auto-disabled on touch.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    --cursor-color: #ff4c24;
+    --cursor-size: 16px;
+}
+
+[data-theme="dark"] {
+    --cursor-color: #ff5b6e;
+}
+
+.ss-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--cursor-size);
+    height: var(--cursor-size);
+    pointer-events: none;
+    z-index: 10000;
+    color: var(--cursor-color);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    will-change: transform;
+    mix-blend-mode: difference;
+}
+.ss-cursor--active { opacity: 1; }
+.ss-cursor--hidden { opacity: 0 !important; }
+
+.ss-cursor__ring {
+    width: 100%;
+    height: 100%;
+    border: 1.5px solid currentColor;
+    border-radius: 9999px;
+    background: currentColor;
+    transition:
+        width 0.375s cubic-bezier(0.625, 0.05, 0, 1),
+        height 0.375s cubic-bezier(0.625, 0.05, 0, 1),
+        background-color 0.375s cubic-bezier(0.625, 0.05, 0, 1),
+        border-color 0.375s cubic-bezier(0.625, 0.05, 0, 1),
+        transform 0.15s cubic-bezier(0.625, 0.05, 0, 1);
+    transform: scale(1);
+}
+
+/* Hover state — expands, drops to 30% alpha */
+.ss-cursor--hover .ss-cursor__ring {
+    background: rgba(255, 76, 36, 0.3);
+}
+
+/* Click pulse */
+.ss-cursor--down .ss-cursor__ring {
+    transform: scale(0.7);
+    background: currentColor;
+    transition-duration: 0.12s;
+}
+
+/* Hide native cursor everywhere on pointer: fine */
+@media (pointer: fine) {
+    html:has(.ss-cursor),
+    html:has(.ss-cursor) a,
+    html:has(.ss-cursor) button,
+    html:has(.ss-cursor) .btn,
+    html:has(.ss-cursor) [role="button"],
+    html:has(.ss-cursor) [data-cursor],
+    html:has(.ss-cursor) label,
+    html:has(.ss-cursor) summary {
+        cursor: none;
+    }
+    /* Text inputs keep the native text caret */
+    html:has(.ss-cursor) input,
+    html:has(.ss-cursor) textarea,
+    html:has(.ss-cursor) select,
+    html:has(.ss-cursor) [contenteditable="true"] {
+        cursor: text;
+    }
+}
+
+/* Optional label inside the ring */
+.ss-cursor__label {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+    pointer-events: none;
 }

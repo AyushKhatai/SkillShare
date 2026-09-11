@@ -119,7 +119,7 @@
 .browse-chip.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    color: #fff;
+    color: var(--paper, #fff);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 

@@ -19,7 +19,11 @@
         if (registerBtn) registerBtn.style.display = 'none';
         if (dashBtn) {
             dashBtn.style.display = '';
-            dashBtn.textContent = `👋 ${displayName}'s Dashboard`;
+            dashBtn.innerHTML = `<span class="ripple-button__content">👋 ${displayName}'s Dashboard</span>`;
+            dashBtn.classList.add('ripple-button');
+            if (typeof initRippleButton === 'function') {
+                initRippleButton(dashBtn);
+            }
         }
 
         // Swap CTA section
@@ -88,88 +92,7 @@ function updateActiveNavLink() {
     });
 }
 
-// ========================================
-// PARTICLE CURSOR EFFECT
-// ========================================
 
-class Particle {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 3 - 1.5;
-        this.speedY = Math.random() * 3 - 1.5;
-        this.life = 100;
-        // Styles based on new theme
-        this.color = Math.random() > 0.5 ? '139, 92, 246' : '6, 182, 212'; // Violet or Cyan
-    }
-
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.life -= 2;
-        if (this.size > 0.2) this.size -= 0.05;
-    }
-
-    draw(ctx) {
-        ctx.fillStyle = `rgba(${this.color}, ${this.life / 100})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-// Only activate on larger screens
-if (window.innerWidth > 768) {
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = '9999';
-    document.body.appendChild(canvas);
-
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const particles = [];
-    let mouseX = 0;
-    let mouseY = 0;
-
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        // Create particles on mouse move (throttled)
-        if (Math.random() > 0.8) {
-            particles.push(new Particle(mouseX, mouseY));
-        }
-    });
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = particles.length - 1; i >= 0; i--) {
-            particles[i].update();
-            particles[i].draw(ctx);
-
-            if (particles[i].life <= 0) {
-                particles.splice(i, 1);
-            }
-        }
-
-        requestAnimationFrame(animate);
-    }
-
-
-    animate();
-}
 
 console.log('✨ Campus Skill Share animations initialized!');
 

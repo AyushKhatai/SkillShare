@@ -60,7 +60,7 @@
                 <ul class="nav__list">
                     <li><a href="#home" class="nav__link nav-link is-active">Home</a></li>
                     <li><a href="skills.html" class="nav__link nav-link">Browse</a></li>
-                    <li><a href="ai-mentor.html" class="nav__link nav-link nav__link--ai">AI Mentor <em>new</em></a></li>
+                    <li><a href="ai-mentor.html" class="nav__link nav-link nav__link--ai ripple-button"><span class="ripple-button__content">AI Mentor <em>new</em></span></a></li>
                     <li><a href="leaderboard.html" class="nav__link nav-link">Leaderboard</a></li>
                     <li><a href="#how" class="nav__link nav-link">How it works</a></li>
                 </ul>
@@ -73,9 +73,7 @@
                     <a href="register.html" class="nav__auth nav__auth--solid" id="navAuthRegister">
                         join free <span>→</span>
                     </a>
-                    <a href="dashboard.html" class="nav__auth nav__auth--solid" id="navAuthDashboard" style="display:none;">
-                        dashboard <span>→</span>
-                    </a>
+                    <a href="dashboard.html" class="nav__auth nav__auth--solid ripple-button" id="navAuthDashboard" style="display:none;"><span class="ripple-button__content">dashboard <span>→</span></span></a>
                 </div>
             </div>
             <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
@@ -114,11 +112,11 @@
                 </p>
 
                 <div class="hero__cta">
-                    <a href="skills.html" class="btn btn--ink">
+                    <a href="skills.html" class="btn btn--ink" data-cursor="lg" data-cursor-label="browse">
                         <span>Browse skills</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="ai-mentor.html" class="btn btn--cream">
+                    <a href="ai-mentor.html" class="btn btn--cream" data-cursor="lg" data-cursor-label="ai mentor">
                         <span class="btn__sparkle">✦</span>
                         <span>Ask the AI mentor</span>
                     </a>
@@ -594,7 +592,7 @@
                 <span class="cta__title-accent">Leave with<br>what you don't.</span>
             </h2>
             <p class="cta__desc" id="ctaDesc">Free forever for verified students. No catch.</p>
-            <a href="register.html" class="btn btn--ink btn--xl" id="ctaBtn">
+            <a href="register.html" class="btn btn--ink btn--xl" id="ctaBtn" data-cursor="lg" data-cursor-label="join free">
                 <span>Create your account</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
@@ -650,6 +648,8 @@
     <script src="script.js"></script>
     <script src="theme.js"></script>
     <script src="animations.js"></script>
+    <script src="cursor.js"></script>
+    <script src="ripple.js"></script>
 </body>
 
 </html>

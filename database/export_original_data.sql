@@ -1,5 +1,4 @@
 -- Campus Skill Share Original Data Export
-SET session_replication_role = replica;
 
 -- Data for users
 INSERT INTO users (user_id, uuid, full_name, email, password_hash, student_id, department, year_of_study, bio, profile_image, phone, interests, social_links, created_at, updated_at, is_active, email_verified, last_login, google_id) VALUES (1, '7ccbbfd5-5e06-43d2-af74-9e0a252ada6c', 'Ayush', 'ayush@vit.ac.in', '$2b$10$3lJRUTnfEJQQ73jcr7SoU.HxRAfsGCMHiOTUJbz.g/Ur.BBQG3aPa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-02-11T19:36:34.171Z', '2026-02-11T19:36:34.171Z', true, false, NULL, NULL) ON CONFLICT DO NOTHING;
@@ -79,4 +78,3 @@ SELECT setval('bookings_booking_id_seq', COALESCE((SELECT MAX(booking_id) FROM b
 SELECT setval('reviews_review_id_seq', COALESCE((SELECT MAX(review_id) FROM reviews), 1), true);
 SELECT setval('messages_message_id_seq', COALESCE((SELECT MAX(message_id) FROM messages), 1), true);
 
-SET session_replication_role = DEFAULT;

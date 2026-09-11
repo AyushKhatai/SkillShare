@@ -36,13 +36,13 @@
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="skills.html" class="nav-link">Browse Skills</a></li>
-                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight">✨ AI Mentor</a></li>
+                    <li><a href="ai-mentor.html" class="nav-link nav-ai-highlight ripple-button"><span class="ripple-button__content">✨ AI Mentor</span></a></li>
                     <li><a href="leaderboard.html" class="nav-link active">Leaderboard</a></li>
                     <li><a href="reviews.html" class="nav-link">Reviews</a></li>
                 </ul>
                 <div class="nav-actions">
                     <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle theme">🌙</button>
-                    <a href="dashboard.html" class="btn btn-primary" id="navAuthProfile">Dashboard</a>
+                    <a href="dashboard.html" class="btn btn-primary ripple-button" id="navAuthProfile"><span class="ripple-button__content">Dashboard</span></a>
                 </div>
             </div>
         </div>
@@ -79,14 +79,24 @@
     <!-- Category Filter -->
     <section class="lb-filters">
         <div class="container">
-            <div class="lb-filter-chips">
-                <button class="browse-chip active" data-category="all">🏆 All</button>
+            <div class="browse-chips lb-filter-chips">
+                <button class="browse-chip active" data-category="all">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    All
+                </button>
                 <button class="browse-chip" data-category="programming">💻 Programming</button>
                 <button class="browse-chip" data-category="arts & design">🎨 Arts & Design</button>
                 <button class="browse-chip" data-category="music">🎵 Music</button>
                 <button class="browse-chip" data-category="sports">⚽ Sports</button>
                 <button class="browse-chip" data-category="fitness">💪 Fitness</button>
                 <button class="browse-chip" data-category="language">🌐 Language</button>
+                <button class="browse-chip" data-category="other">✨ Other</button>
             </div>
         </div>
     </section>
@@ -149,6 +159,8 @@
     <script src="theme.js"></script>
     <script src="script.js"></script>
     <script src="leaderboard.js"></script>
+    <script src="cursor.js"></script>
+    <script src="ripple.js"></script>
     <script src="brand.js"></script>
 </body>
 

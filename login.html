@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SkillShare Hub</title>
-    <meta name="description" content="Login to your SkillShare Hub account">
+    <title>Log In — SkillShare Hub</title>
+    <meta name="description" content="Sign in to your SkillShare Hub campus peer learning account">
     <script>
         (function(){const t=localStorage.getItem('theme'),d=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&d)){document.documentElement.setAttribute('data-theme','dark')}else{document.documentElement.setAttribute('data-theme','light')}})();
     </script>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,68 +19,223 @@
         rel="stylesheet">
 </head>
 
-<body>
-    <div class="auth-container">
-        <!-- Replaced background with simple CSS gradient in body/hero -->
+<body class="auth-page">
+    <div class="auth-split-container">
 
-        <div class="auth-card">
-            <div class="auth-header">
-                <a href="index.html" class="skill-link" style="margin-bottom: 1rem; display: inline-block;">← Back to
-                    Home</a>
-                <div class="logo" style="justify-content: center;">
-                    <span class="logo-icon">🎓</span>
-                    <span class="logo-text">SkillShare<span class="logo-accent">Hub</span></span>
+        <!-- ═══ LEFT SHOWCASE ═══ -->
+        <aside class="auth-showcase" aria-label="SkillShare Hub Highlights">
+            <div class="showcase-content">
+                <div class="showcase-header">
+                    <a href="index.html" class="logo logo-brand" aria-label="SkillShare Hub Home">
+                        <span class="logo-mark" aria-hidden="true">
+                            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                                <title>SkillShare Hub</title>
+                                <rect class="logo-frame" x="4" y="4" width="40" height="40" rx="9" transform="rotate(-4 24 24)"/>
+                                <g class="logo-arrow-paper"><path d="M14 19 H31"/><path d="M27.5 15 L31.5 19 L27.5 23"/></g>
+                                <g class="logo-arrow-lemon"><path d="M34 29 H17"/><path d="M20.5 25 L16.5 29 L20.5 33"/></g>
+                            </svg>
+                        </span>
+                        <span class="logo-word">skillshare<i>/</i>hub</span>
+                    </a>
+                    <div class="showcase-badge">
+                        <span class="showcase-badge-dot"></span>
+                        <span>Campus Verified</span>
+                    </div>
+                </div>
+
+                <h2 class="showcase-title">
+                    Trade what you know.<br>
+                    <span class="showcase-title-serif">Learn what you don't.</span>
+                </h2>
+
+                <p class="showcase-desc">
+                    Connect with peer tutors across campus for 1-on-1 skill swaps, interview prep, and creative collabs. No fees, ever.
+                </p>
+
+                <!-- Live Trade Preview Card -->
+                <div class="showcase-trade-card">
+                    <div class="trade-card-header">
+                        <span class="trade-card-tag">Recent Skill Swap</span>
+                        <span class="trade-card-status">● Active Today</span>
+                    </div>
+                    <div class="trade-card-match">
+                        <span>Python DSA</span>
+                        <span class="trade-card-arrow">⇄</span>
+                        <span>UI / Figma</span>
+                    </div>
+                    <div style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--ink-soft); display: flex; justify-content: space-between;">
+                        <span>Sneha (CS '26) &amp; Aarav</span>
+                        <span style="color: #f59e0b; font-weight: 600;">★ 5.0 (3rd week)</span>
+                    </div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="showcase-stats">
+                    <div class="stat-item">
+                        <div class="stat-item-num">1,240+</div>
+                        <div class="stat-item-lbl">Sessions Done</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-num">100+</div>
+                        <div class="stat-item-lbl">Peer Tutors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-item-num">0.00</div>
+                        <div class="stat-item-lbl">Cost in Dollars</div>
+                    </div>
                 </div>
             </div>
 
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h1 class="auth-title">Welcome Back</h1>
-                <p class="auth-subtitle">Login to continue your learning journey</p>
+            <div class="showcase-footer">
+                <span>By students, for students</span>
+                <span class="showcase-footer-dot">✦</span>
+                <span>Campus Peer Network</span>
             </div>
+        </aside>
 
-            <form id="loginForm" class="auth-form">
-                <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="your.email@college.edu"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" id="password" name="password" class="form-input"
-                        placeholder="Enter your password" required>
-                </div>
-
-                <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
-                        <input type="checkbox" name="remember">
-                        <span>Remember me</span>
-                    </label>
-                    <a href="#" style="color: var(--primary-color); font-size: 0.9rem;">Forgot password?</a>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    Login to Account
+        <!-- ═══ RIGHT FORM STAGE ═══ -->
+        <main class="auth-stage">
+            <header class="auth-nav">
+                <a href="index.html" class="auth-back-link">
+                    <span class="auth-back-arrow">←</span> Back to campus
+                </a>
+                <button id="theme-toggle-btn" class="theme-pill" aria-label="Toggle theme">
+                    <span class="theme-pill__dot"></span>
+                    <span class="theme-pill__label">dark</span>
                 </button>
+            </header>
 
-                <div class="divider">Or continue with</div>
+            <div class="auth-form-wrap">
+                <div class="auth-header-block">
+                    <span class="auth-kicker">Campus Portal</span>
+                    <h1 class="auth-heading">Welcome back</h1>
+                    <p class="auth-subheading">Enter your institutional email and password to access your dashboard.</p>
+                </div>
 
+                <!-- Google SSO Button -->
                 <div id="google-btn-container">
                     <!-- Google Button Rendered Here -->
                 </div>
-            </form>
 
-            <div class="auth-footer">
-                <p>Don't have an account? <a href="register.html">Sign up</a></p>
+                <div class="auth-divider">or continue with email</div>
+
+                <!-- Email & Password Form -->
+                <form id="loginForm" class="auth-form-card" novalidate>
+                    <!-- Email -->
+                    <div class="form-field">
+                        <label for="email" class="form-field-label">Institutional Email</label>
+                        <div class="input-control">
+                            <span class="input-icon-left" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </span>
+                            <input type="email" id="email" name="email" class="auth-text-input"
+                                placeholder="your.name@college.edu" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-field">
+                        <div class="form-field-label">
+                            <label for="password">Password</label>
+                            <a href="#" class="form-field-forgot" id="forgotPasswordBtn">Forgot password?</a>
+                        </div>
+                        <div class="input-control">
+                            <span class="input-icon-left" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="password" name="password" class="auth-text-input"
+                                placeholder="••••••••" autocomplete="current-password" required>
+                            <button type="button" class="input-eye-btn" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                                <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Options Row -->
+                    <div class="form-options-row">
+                        <label class="auth-checkbox-label">
+                            <input type="checkbox" name="remember" id="rememberMe">
+                            <span class="custom-box" aria-hidden="true">
+                                <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
+                                    <path d="M1 4.5L4 7.5L10 1.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span>Keep me signed in</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary auth-submit-btn ripple-button">
+                        <span class="ripple-button__content">
+                            Login to Account <span style="margin-left: 0.4rem;" aria-hidden="true">→</span>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Switch to Register -->
+                <div class="auth-card-footer">
+                    <p>Don't have an account yet? <a href="register.html">Join for free</a></p>
+                </div>
+
+                <div class="auth-security-badge" aria-hidden="true">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Campus SSO Protected · Zero Tracking</span>
+                </div>
             </div>
-        </div>
+
+            <!-- Empty balance spacer for layout symmetry -->
+            <div style="height: 1rem;"></div>
+        </main>
+
     </div>
+
+    <!-- Password visibility toggle script -->
+    <script>
+        (function(){
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            const passInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (toggleBtn && passInput && eyeIcon) {
+                toggleBtn.addEventListener('click', () => {
+                    const isPass = passInput.type === 'password';
+                    passInput.type = isPass ? 'text' : 'password';
+                    eyeIcon.innerHTML = isPass
+                        ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+                        : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+                    toggleBtn.setAttribute('aria-label', isPass ? 'Hide password' : 'Show password');
+                });
+            }
+
+            const forgotBtn = document.getElementById('forgotPasswordBtn');
+            if (forgotBtn) {
+                forgotBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (typeof showToast === 'function') {
+                        showToast('Please contact your campus administrator or use Google SSO to reset access.', 'info');
+                    }
+                });
+            }
+        })();
+    </script>
 
     <script src="toast.js"></script>
     <script src="api.js"></script>
     <script src="auth-login.js"></script>
     <script src="auth-google.js"></script>
     <script src="theme.js"></script>
+    <script src="cursor.js"></script>
+    <script src="ripple.js"></script>
     <script src="brand.js"></script>
 </body>
 

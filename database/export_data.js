@@ -4,8 +4,7 @@ const db = require('../config/database');
 async function exportAll() {
   try {
     const tables = ['users', 'skills', 'bookings', 'reviews', 'messages'];
-    let sqlOutput = '-- Campus Skill Share Original Data Export\n';
-    sqlOutput += 'SET session_replication_role = replica;\n\n';
+    let sqlOutput = '-- Campus Skill Share Original Data Export\n\n';
 
     for (const table of tables) {
       const res = await db.query(`SELECT * FROM ${table} ORDER BY 1 ASC`);
@@ -47,7 +46,6 @@ async function exportAll() {
     sqlOutput += `SELECT setval('bookings_booking_id_seq', COALESCE((SELECT MAX(booking_id) FROM bookings), 1), true);\n`;
     sqlOutput += `SELECT setval('reviews_review_id_seq', COALESCE((SELECT MAX(review_id) FROM reviews), 1), true);\n`;
     sqlOutput += `SELECT setval('messages_message_id_seq', COALESCE((SELECT MAX(message_id) FROM messages), 1), true);\n\n`;
-    sqlOutput += `SET session_replication_role = DEFAULT;\n`;
 
     fs.writeFileSync('./database/export_original_data.sql', sqlOutput);
     console.log('Exported successfully to database/export_original_data.sql');
